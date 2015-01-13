@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'home/ico/favicon.png' %}">
+
+    <title>ddAtomCollect | Payments & Notifications</title>
+	
+    <!-- Bootstrap -->
+    <link href="{% static 'home/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Overwrite bootstrap -->
+    <link href="{% static 'home/css/overwrite.css' %}" rel="stylesheet">
+	
+	<!-- font awesome -->
+	<link href="{% static 'home/css/font-awesome.css' %}" rel="stylesheet">
+    <!--[if lt IE 9]>
+	  <link href="{% static 'home/css/font-awesome-ie7.css' %}" rel="stylesheet">
+	<![endif]-->
+	<link href="{% static 'home/css/font-awesome-set.css' %}" rel="stylesheet">
+
+    <!-- cslider style -->
+    <link href="{% static 'home/css/cslider.css' %}" rel="stylesheet">
+	<noscript>
+		<link rel="stylesheet" type="text/css" href="{% static 'home/css/nojs.css' %}" />
+	</noscript>	
+
+    <!-- prettyPhoto style -->
+    <link href="{% static 'home/css/prettyPhoto.css' %}" rel="stylesheet">
+	
+    <!-- Custom style -->
+    <link href="{% static 'home/css/style.css' %}" rel="stylesheet">
+	
+	<!-- Font -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,700,300' rel='stylesheet' type='text/css'>
+	
+	<!-- Color style -->
+    <link href="{% static 'home/skin/default.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	  <script src="{% static 'home/js/html5shiv.js' %}"></script>
+	  <script src="{% static 'home/js/respond.min.js' %}"></script>
+	<![endif]-->	
+  </head>
+  <body>
+	<!-- Start home -->
+	<section id="home" class="bgslider-wrapper">
+		<div id="animated-bg">
+			<div id="animated-bg1" class="bg-slider"></div>
+			<div id="animated-bg2" class="bg-slider"></div>
+			<div id="animated-bg3" class="bg-slider"></div>
+		</div>
+		<div class="home-contain">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<a href="#home" class="logo"><img src="{% static 'home/img/logo.png' %}" alt="" /></a>
+					</div>	
+					<div class="col-lg-8 col-lg-offset-2">
+						<div id="da-slider" class="da-slider">
+							<div class="da-slide">
+								<h2>We are passionate technologists</h2>
+								<p>We're passionate about making your business better with new ideas and technologies and we provide pioneering tools for our ambitious partners to gain and maintain competitive advantage. We can help you transform your business.</p>
+							</div>
+							<div class="da-slide">
+								<h2>Supported by a professional team</h2>
+								<p>We are strongly supported by a professional team of highly qualified and competent staff who are on-hand to offer expert consultancy and support. We are the best at what we do and we endeavour to keep your satisfaction at 100%.</p>
+							</div>
+{#							<div class="da-slide">#}
+{#								<h2>Make more than 1000 apps</h2>#}
+{#								<p>Quo autem complectitur an, porro commodo impedit in nec. Eam facer elaboraret ea, ad eos nullam consulatu maiestatis. Eum mazim simul ne, dicta mnesarchum duo no, ex nec graece verear. Quodsi mentitum iudicabit ut vel, nam suscipiantur</p>#}
+{#							</div>#}
+							<div class="da-slide">
+								<h2>High quality and full service</h2>
+								<p>We pride ourselves in our belief that a business is built on good relationships, honesty, integrity and quality. We are dedicated to providing the highest quality products and craftsmanship that will transform your business</p>
+							</div>
+							<nav class="da-arrows">
+								<span class="da-arrows-prev"></span>
+								<span class="da-arrows-next"></span>
+							</nav>
+						</div>
+						<div class="btn-group">
+							 <a href="#about" class="btn btn-default btn-dark btn-cta">
+								<span class="cta-head">Get started with us!</span><br />
+								Find out more about who we are
+							 </a>
+							 <a href="#contact" class="btn btn-default btn-red btn-cta">
+								<span class="cta-head">Request for a trial</span><br />
+								Contact us now to start a trial
+							 </a>
+						</div>
+					</div>					
+				</div>	
+			</div>	
+		</div>
+	</section>
+	<!-- End home -->
+	<div class="clearfix"></div>
+	<!-- Header -->
+	<header>
+		<div class="navbar">
+			<div class="container">
+				<a class="navbar-brand" href="index.html"><img src="{% static 'home/img/small-logo.png' %}" alt="" /></a>
+				<div class="nav-collapse collapse navbar-responsive-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="#home">Home</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#feature">Features</a></li>
+{#						<li><a href="#gallery">Gallery</a></li>#}
+						<li><a href="#pricing">Pricing</a></li>
+						<li><a href="#testimoni">Testimonials</a></li>
+						<li><a href="#contact">Contact</a></li>				
+{#						<li class="dropdown">#}
+{#							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Extra</a>#}
+{#							<ul class="dropdown-menu">#}
+{#								<li><a href="detail.html">Product detail</a></li>								#}
+{#								<li><a href="maintenance.html">Maintenance page</a></li>#}
+{#								<li><a href="404.html">404 page</a></li>								#}
+{#								<li><a href="icons.html">Icons</a></li>#}
+{#								<li><a href="Buttons.html">Buttons</a></li>#}
+{#								<li><a href="accordion.html">Accordion</a></li>#}
+{#							</ul>#}
+{#						</li>#}
+					</ul>
+				</div><!-- End nav-collapse -->
+				<div class="nav-right"><a href="#contact" class="btn btn-red">Get intouch for an Account!</a></div>
+			</div><!-- End container -->
+		</div><!-- End navbar -->
+	</header>
+	<!-- End header -->
+	
+	<!-- Start about -->
+	<section id="about">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5">
+						<h3 class="heading">Who we are</h3>
+						<p>
+						Atom collect  is an innovative payment collection system and communication tool provided by Diluo Company Ltd which has solid reputation in Information Technology Solutions, Payment and Financial environments, SMS Communication and Marketing Campaigns as well as Consulting and Mission Support.
+						</p>
+						<p>
+						We don’t see ourselves simply as a technology company, but as your trusted business advisor. We don’t believe in implementing technology for technology’s sake, but believe that technology should be implemented only when it is aligned with your business vision.
+                        Working together, you can focus on your business while we focus on the technology that helps run it successfully.
+						</p>
+						<p>
+						<a href="#contact" class="btn btn-default">Get in touch with us</a>
+						</p>
+						<img src="{% static 'home/img/span-arrow.png' %}" class="img-responsive pull-right" alt="" />
+					</div>	
+					<div class="col-lg-7">
+						<img src="{% static 'home/img/flat-img.png' %}" class="img-responsive" alt="" />
+					</div>						
+				</div>	
+			</div>		
+	</section>
+	<!-- End about -->
+
+	<!-- Start feature -->
+	<section id="feature">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="tab-feature">
+							<h3 class="feature-head">Our awesome features</h3>
+							<ul id="myTab" class="nav nav-tabs">
+								<li class="active"><a href="#tab1" class="tab-bg1" data-toggle="tab">Payment Collection</a></li>
+								<li><a href="#tab2" class="tab-bg2" data-toggle="tab">Mobile Marketing</a></li>
+								<li><a href="#tab3" class="tab-bg3" data-toggle="tab">Communication</a></li>
+								<li><a href="#tab4" class="tab-bg4" data-toggle="tab">Auto-Notification</a></li>
+								<li><a href="#tab5" class="tab-bg5" data-toggle="tab">Customer Self-Service</a></li>
+								<li><a href="#tab6" class="tab-bg6" data-toggle="tab">Customizable</a></li>
+								<li><a href="#tab7" class="tab-bg7" data-toggle="tab">Full Support</a></li>
+								<li><a href="#tab8" class="tab-bg8" data-toggle="tab">Vouchers (Soon)</a></li>
+							</ul>
+						</div>
+					</div>	
+					<div class="col-lg-8">
+						<div id="myTabContent" class="tab-content fature-contain">
+							<div class="tab-pane fade in active" id="tab1">
+								<div class="feature-title">
+									<i class="icon-thumbs-up icon-rounded icon-128"></i>
+									<h4>Payment Collection</h4>
+								</div>
+								<p>
+Coordination of payments by your field agents is a difficult process that demands a lot of attention and paperwork to make sure that things are done right.
+Our convenient mobile enabled money collection tool allows your field agents (e.g money collectors) on the field to submit transactions right from the field
+when they make collections. This tool also provides you the following benefits.
+
+<ul class="fa-ul">
+  <li><i class="fa-li fa fa-check-square"></i>Embezzlement and pilfering prevention</li>
+  <li><i class="fa-li fa fa-check-square"></i>Efficient payment & Agent audit and rewards</li>
+  <li><i class="fa-li fa fa-check-square"></i>Easy auditing, reporting and trend analytics</li>
+  <li><i class="fa-li fa fa-check-square"></i>Fosters trust, sense of reliability and credibility</li>
+</ul>
+								</p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>
+							<div class="tab-pane fade" id="tab2">
+								<div class="feature-title">
+									<i class="icon-mobile-phone icon-rounded icon-128"></i>
+									<h4>Mobile Marketing & Promotions</h4>
+								</div>
+								<p>
+SMS provides a cheap means to reach a wide range of customers and potential-customers directly. This opens the opportunity for mobile marketing and mobile
+advertising. Take advantage of our mobile campaigning tool to;
+
+<ul class="fa-ul">
+  <li><i class="fa-li fa fa-check-square"></i>Reach out and boost revenues, cut costs and enhance customer loyalty</li>
+  <li><i class="fa-li fa fa-check-square"></i>Uncover new mobile revenue streams with interactive, sponsored mobile advertising</li>
+  <li><i class="fa-li fa fa-check-square"></i>Promote new products through mobile marketing, offering last-minute or carefully targeted specials</li>
+  <li><i class="fa-li fa fa-check-square"></i>Send notifications of seasonal offers to targeted audience</li>
+</ul>
+                                </p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>
+							<div class="tab-pane fade" id="tab3">
+								<div class="feature-title">
+									<i class="icon-share icon-rounded icon-128"></i>
+									<h4>Cheap & Effective Communication</h4>
+								</div>
+								<p>
+Our two way SMS communication tool provides a fast, cost effective and streamlined means of communication that allow you to;
+<ul class="fa-ul">
+  <li><i class="fa-li fa fa-check-square"></i>Reduce costly customer service calls and in-person visits</li>
+  <li><i class="fa-li fa fa-check-square"></i>Provide your Customers proactive self-care services</li>
+  <li><i class="fa-li fa fa-check-square"></i>Reduce labor expenses with automated SMS alerts</li>
+  <li><i class="fa-li fa fa-check-square"></i>Streamline operations and communications internally and externally</li>
+</ul>
+
+								</p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>
+							<div class="tab-pane fade" id="tab4">
+								<div class="feature-title">
+									<i class="icon-bullhorn icon-rounded icon-128"></i>
+									<h4>Notifications and Auto-reminders</h4>
+								</div>
+								<p>
+You never have to worry anymore about notifying customers when their payments are due or when they have failed to make payment.
+Managing post-date Checks for repayment has been made easier with our auto notification tools
+This tool performs the following actions for you automatically without you raising a finger;
+
+<ul class="fa-ul">
+  <li><i class="fa-li fa fa-check-square"></i>Send notifications of financial transactions via SMS</li>
+  <li><i class="fa-li fa fa-check-square"></i>Send SMS alerts on changing data such as stock price updates and interest rates</li>
+  <li><i class="fa-li fa fa-check-square"></i>Send reminders of payment deadlines and expected contributions by customers</li>
+</ul>
+								</p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>
+							<div class="tab-pane fade" id="tab5">
+								<div class="feature-title">
+									<i class="icon-user icon-rounded icon-128"></i>
+									<h4>Customer Self-Service</h4>
+								</div>
+								<p>
+SMS is a convenient way to access financial information because it is easy to use and SMS messages can be sent and read any time, any place.
+atomCollector provides the following features that can be accessed by your customers to their satisfaction.
+
+<ul class="fa-ul">
+  <li><i class="fa-li fa fa-check-square"></i>Make loan applications via SMS</li>
+  <li><i class="fa-li fa fa-check-square"></i>Transfer funds between accounts via SMS</li>
+  <li><i class="fa-li fa fa-check-square"></i>Enquiry of updates on special offers and discounts</li>
+  <li><i class="fa-li fa fa-check-square"></i>Reward customer loyalty with SMS vouchers</li>
+</ul>
+								</p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>
+							<div class="tab-pane fade" id="tab6">
+								<div class="feature-title">
+									<i class="icon-gears icon-rounded icon-128"></i>
+									<h4>Easy & Fully Configurable</h4>
+								</div>
+								<p>
+Never mind that there are various tools that we provide to improve productivity and increase revenue. The tools provide
+have gone through various steps of validation with real clients like you whose feedback are regularly being incorporated
+to ensure an usable and fully configurable system. We have provided intuitive "One-Click Settings" feature that enables
+you to handle all configurations in one Step!
+								</p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>
+							<div class="tab-pane fade" id="tab7">
+								<div class="feature-title">
+									<i class="icon-anchor icon-rounded icon-128"></i>
+									<h4>Full Support and Consultancy</h4>
+								</div>
+								<p>
+We not only provide you full training and support for the usage of the tools we provide. We also pride ourselves in the full consultancy services
+we give our clients and partners in various areas of application of our technologies. By continuous consideration of feedback and research,
+we are able to evolve and meet your changing needs and give you relevant advice on which direction you should go in order to remain
+competitive in a fast changing technological environment.
+								</p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>
+							<div class="tab-pane fade" id="tab8">
+								<div class="feature-title">
+									<i class="icon-money icon-rounded icon-128"></i>
+									<h4>Voucher payments (Coming Soon)</h4>
+								</div>
+								<p>
+Our voucher payment tool allows your customers to make payment themselves without walking to your offices and without sending your agent to them to
+make collections from the field. This payment system can the fully integrated into other payments systems with the help of our fully RESTFul payment API.
+This ensures efficient cost effective participation from customers.</p>
+								<p><a href="#" class="btn btn-default btn-lg">learn more</a></p>
+							</div>								
+						</div>
+					</div>						
+				</div>	
+			</div>		
+	</section>
+	<!-- End feature -->
+	
+	<!-- Start gallery -->
+{#	<section id="gallery">#}
+{#			<div class="container">#}
+{#				<div class="row">#}
+{#					<div class="col-lg-12">#}
+{#						<h3 class="heading">Our gallery</h3>#}
+{#						<div id="filter-bar">#}
+{#							<ul id="filters" class="option-set">#}
+{#								<li><a href="#" class="selected" data-filter=".all">All</a></li>#}
+{#								<li><a href="#" data-filter=".interface">Interface</a></li>#}
+{#								<li><a href="#" data-filter=".print">Print</a></li>#}
+{#								<li><a href="#" data-filter=".illustration">Illustration</a></li>#}
+{#								<li><a href="#" data-filter=".branding">Branding</a></li>#}
+{#							</ul>#}
+{#						</div>					#}
+{#					</div>#}
+{#				#}
+{#					  <ul id="gallery-list" class="clearfix">#}
+{#							<li class="item col-lg-4 all interface">				#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img1.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Velit dissentiunt an ius</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>#}
+{#							</li>#}
+{#							<li class="item col-lg-4 all interface">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img2.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>	#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Cu viris audire volumus</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>#}
+{#							<li class="item col-lg-4 all print">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img3.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Eros laudem omittantur</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>#}
+{#							<li class="item col-lg-4 all branding">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img4.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Admodum accommodare qui</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>	#}
+{#							<li class="item col-lg-4 all print">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img5.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">His diceret senserit ne</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>#}
+{#							<li class="item col-lg-4 all illustration">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img6.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>		#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Consequuntur sed ne</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>#}
+{#							<li class="item col-lg-4 all illustration">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img7.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>		#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Scripta habemus dolores</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>#}
+{#							<li class="item col-lg-4 all branding">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img8.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div>		#}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Erroribus corrumpit</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>	#}
+{#							<li class="item col-lg-4 all interface">#}
+{#								<div class="image-wrapper">	#}
+{#									<img src="{% static 'home/img/gallery/img9.jpg' %}" class="img-responsive" alt=""/>#}
+{#								</div> #}
+{#								<div class="img-title">#}
+{#									<h6><a href="detail.html">Nam dolore sapientem</a></h6>#}
+{#									<a href="img/gallery/big.jpg' %}" data-pretty="prettyPhoto" class="zoom">Zoom</a>#}
+{#								</div>							#}
+{#							</li>					#}
+{#						</ul>			#}
+{#				</div>							#}
+{#			</div>		#}
+{#	</section>#}
+	<!-- End gallery -->	
+
+	<!-- Start pricing -->
+	<section id="pricing">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h3 class="heading text-center">Special offer</h3>
+				<ul class="pricing-table">
+					<li>
+					<ul>
+						<li class="plan_name aligncenter">TRIAL</li>
+						<li class="plan_price aligncenter"><strong>Free</strong></li>
+						<li class="aligncenter">One Month of service</li>
+						<li class="aligncenter">Technical support</li>
+						<li class="aligncenter">100 SMS credits</li>
+						<li class="aligncenter">100 Customers</li>
+						<li class="aligncenter">1 Agent</li>
+						<li class="aligncenter">99.9% uptime</li>
+						<li class="aligncenter">Access anywhere online</li>
+						<li class="aligncenter button_box"><a class="btn btn-red btn-lg" href="#contact">Order now</a></li>
+					</ul>
+					</li>
+					<li class="featured">
+					<ul>
+						<li class="plan_name aligncenter">LITE</li>
+						<li class="plan_price aligncenter"><strong>&#36; 100/</strong>month</li>
+						<li class="aligncenter">3 years of service</li>
+						<li class="aligncenter">Technical support</li>
+						<li class="aligncenter">10000 SMS credits</li>
+						<li class="aligncenter">10000 Customers</li>
+						<li class="aligncenter">20 Agents</li>
+						<li class="aligncenter">99.9% uptime</li>
+						<li class="aligncenter">Access anywhere online</li>
+{#						<li class="aligncenter">Automatic backups</li>#}
+						<li class="aligncenter button_box"><a class="btn btn-red btn-lg" href="#contact">Order now</a></li>
+					</ul>
+					</li>
+					<li>
+					<ul>
+						<li class="plan_name aligncenter">MEGA</li>
+						<li class="plan_price aligncenter"><strong>&#36; 250/</strong>month</li>
+						<li class="aligncenter">3 years of service</li>
+						<li class="aligncenter">Technical support</li>
+						<li class="aligncenter">25000 SMS Credit</li>
+						<li class="aligncenter">Unlimited Customers</li>
+						<li class="aligncenter">Unlimited Agents</li>
+						<li class="aligncenter">99.9% uptime</li>
+						<li class="aligncenter">Access anywhere online</li>
+{#						<li class="aligncenter">Automatic backups</li>#}
+						<li class="aligncenter button_box"><a class="btn btn-red btn-lg" href="#contact">Order now</a></li>
+					</ul>
+					</li>
+				</ul>
+					</div>							
+				</div>	
+			</div>		
+	</section>
+	<!-- End pricing -->
+
+	<!-- Start testimoni -->
+	<section id="testimoni">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2">
+						<h3 class="heading text-center">Testimonials</h3>
+						<ul class="ticker testimoni">
+							<li>
+								<a href="#"><img src="{% static 'home/img/testimoni/avatar1.jpg' %}" class="testimo-avatar" alt="" /></a>
+								<p>
+								Tools like the Campaign are just what we need to reach out to our customers about advertising information, new products and promotions at an affordable cost. We are able to drive great sales with this tool.
+								</p>
+								<p class="testimoni-info">Myron Odamtten - <a href="#">ACMF - Sales Manager</a></p>
+							</li>
+							<li>
+								<a href="#"><img src="{% static 'home/img/testimoni/avatar2.jpg' %}" class="testimo-avatar" alt="" /></a>
+								<p>
+								We have seen substantial increase in payments from customers due the loyalty we have gained through the close communication we have with them and the value added services such as transaction notifications and other customer self services.
+								</p>
+								<p class="testimoni-info">Anonymous - <a href="#">Marketing Manager</a></p>
+							</li>
+							<li>
+								<a href="#"><img src="{% static 'home/img/testimoni/avatar3.jpg' %}" class="testimo-avatar" alt="" /></a>
+								<p>
+								We have had great technical support and various free advice from atomCollect team and they relate to us more as Technical Partner than just our service provider.
+								</p>
+								<p class="testimoni-info">Familua Tobi Martins - <a href="#">CEO - SMSBox Inc</a></p>
+							</li>
+{#							<li>#}
+{#								<a href="#"><img src="{% static 'home/img/testimoni/avatar4.jpg' %}" class="testimo-avatar" alt="" /></a>#}
+{#								<p>#}
+{#								Porro facilis id vis, omnis reque corpora at ius. Veri ubique oportere duo ea, vix sale ferri percipitur te, vix ut aliquid quaestio appellantur. Eu munere indoctum definitiones sit. Virtute inimicus quo ea. In mei facete deleniti constituam.#}
+{#								</p>#}
+{#								<p class="testimoni-info">Neng ebrod - <a href="#">Ebrod company</a></p>#}
+{#							</li>								#}
+						</ul>							
+					</div>							
+				</div>	
+			</div>		
+	</section>
+	<!-- End testimoni -->
+
+	<!-- Start action -->
+	<section id="action">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 aligncenter">
+					<h4>What are you waiting for? get in touch now!</h4>
+					<p>
+					You can request to have trial account which we are happy to give you free of charge!
+					</p>	
+					<p><a href="#contact" class="btn btn-lg btn-red">Contact us about trying it for free</a><p>
+				</div>
+			</div>
+		</div>				
+	</section>
+	<!-- End action -->
+	
+	<!-- Start contact -->
+	<section id="contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-7">
+						<h3 class="heading">Conatct us</h3>
+						<form id="contactform" action=""  method="post" class="validateform" name="leaveContact">
+                            {% csrf_token %}
+                            <div id="sendmessage">
+								<div class="alert alert-info marginbot35">
+								  <button type="button" class="close" data-dismiss="alert">&times;</button>
+								  <strong>Your message has been sent. Thank you!</strong><br />
+								  We always respond to your queries. Your request is being attended to right now and we will get back to you as soon as possible.
+								</div>							
+							</div>
+                            <div id="errormessage">
+                                <div class="alert alert-danger marginbot35">
+								  <button type="button" class="close" data-dismiss="alert">&times;</button>
+								  <strong>Your request was not successfully sent</strong><br />
+                                  Please review the content, refresh the page and try again
+								</div>
+							</div>
+
+							<ul class="listForm">
+								<li>
+									<label>Your name <span>&#40; Required &#41;</span></label>
+									<input class="form-control" type="text" name="name" data-rule="maxlen:4" data-msg="Please enter at least 4 chars" />									
+									<div class="validation"></div>
+								</li>
+								<li>
+									<label>Your email <span>&#40; Required &#41;</span></label>
+									<input class="form-control" type="text" name="email" data-rule="email" data-msg="Please enter a valid email" />										
+									<div class="validation"></div>
+								</li>
+								<li>
+									<label>Your message <span>&#40; Required(limit 500) &#41;</span></label>
+									<textarea class="form-control" rows="9" name="message" data-rule="required" data-msg="Please write something for us"></textarea>												
+									<div class="validation"></div>
+								</li>
+								<li>
+									<input type="submit" value="Send message" class="btn btn-red btn-lg btn-block" name="Submit" />
+								</li>
+							</ul>
+						</form>
+					</div>	
+					<div class="col-lg-5">
+						<div class="location">
+							<div class="location-address">
+								<h6>Office location</h6>
+								<p>
+									<strong>Djatabu Street</strong> <br />
+									Community 3 site B<br />
+									Tema - Ghana
+								</p>
+								<span class="location-arrow"></span>
+							</div>
+						</div>
+					</div>											
+				</div>	
+			</div>		
+	</section>
+	<!-- End contact -->
+
+	<!-- Start subscribe -->
+	<section id="subscribe">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<h5>Stay update with us</h5>
+					<p>
+					we will use this email address to get back to you about our schedules and features. We will never spam you or share it with anyone
+					</p>
+					<form>
+						<fieldset class="subscribe-form">
+							<input class="subscribe" type="text" placeholder="Enter your email address">
+							<button class="subscribe-button" type="button"></button>
+						</fieldset>	
+					</form>	
+					<a href="#" class="social-network"><i class="icon-facebook icon-rounded icon-128"></i></a>
+					<a href="#" class="social-network"><i class="icon-twitter icon-rounded icon-128"></i></a>
+					<a href="#" class="social-network"><i class="icon-google-plus icon-rounded icon-128"></i></a>
+					<a href="#" class="social-network"><i class="icon-linkedin icon-rounded icon-128"></i></a>
+				</div>
+			</div>
+		</div>		
+	</section>
+	<!-- End subscribe -->
+	
+	<!-- Start footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="copyright">2014 &copy; Copyright <a href="diluolab.com">DiluoLab Ltd</a>. All rights Reserved.</span>
+				</div>
+			</div>
+		</div>		
+	</footer>
+	<!-- End footer -->
+	
+    <!-- JavaScript plugins (requires jQuery) -->
+    <script src="{% static 'home/js/jquery.js' %}"></script>
+	
+	<!-- JavaScript easing plugins -->
+	<script src="{% static 'home/js/jquery.easing.1.3.js' %}"></script>	
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+
+	<!-- JavaScript navigation -->	
+	<script src="{% static 'home/js/navigation/jquery.scrollTo-1.4.2-min.js' %}"></script>
+	<script src="{% static 'home/js/navigation/jquery.smooth-scroll.js' %}"></script>
+	<script src="{% static 'home/js/navigation/waypoints.min.js' %}"></script>
+	<script src="{% static 'home/js/navigation/navbar.js' %}"></script>
+	
+	<!-- JavaScript bgSlider slider -->
+	<script src="{% static 'home/js/bgslider/bgSlider.js' %}"></script>			
+
+	<!-- isotope -->
+    <script src="{% static 'home/js/filter/jquery.isotope.min.js' %}"></script>
+	<script src="{% static 'home/js/filter/setting.js' %}"></script>
+	
+	<!-- JavaScript cslider -->
+	<script src="{% static 'home/js/cslider/modernizr.custom.28468.js' %}"></script>	
+	<script src="{% static 'home/js/cslider/jquery.cslider.js' %}"></script>	
+	<script src="{% static 'home/js/cslider/setting.js' %}"></script>	
+
+	<!-- prettyPhoto -->
+	<script src="{% static 'home/js/prettyPhoto/jquery.prettyPhoto.js' %}"></script>
+	<script src="{% static 'home/js/prettyPhoto/setting.js' %}"></script>
+
+	<!-- JavaScript ticker -->
+	<script src="{% static 'home/js/ticker/ticker.js' %}"></script>	
+	<script src="{% static 'home/js/ticker/setting.js' %}"></script>
+	
+	<!-- JavaScript totop -->
+	<script src="{% static 'home/js/totop/jquery.ui.totop.js' %}"></script>	
+	<script src="{% static 'home/js/totop/setting.js' %}"></script>
+	
+	<!-- Contact validation js -->
+    <script src="{% static 'home/js/validation.js' %}"></script>
+
+	<!-- Custom js -->
+    <script src="{% static 'home/js/custom.js' %}"></script>
+	
+  </body>
+</html>

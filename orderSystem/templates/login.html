@@ -1,0 +1,128 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+  <title>MAN Truck Sales/Ordering System</title>
+
+  <link href="{% static 'css/style.default.css' %}" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="{% static 'js/html5shiv.js'%}"></script>
+  <script src="{% static 'js/respond.min.js'%}"></script>
+  <![endif]-->
+</head>
+
+<body class="signin">
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+  
+    <div class="signinpanel">
+        
+        <div class="row">
+            
+            <div class="col-md-7">
+                
+                <div class="signin-info">
+                    <div class="logopanel">
+                        <h1><span>[</span> MBG Limited <span>]</span></h1>
+                    </div><!-- logopanel -->
+                
+                    <div class="mb20"></div>
+                
+                    <h5><strong>Welcome MBG Truck Ordering System</strong></h5>
+                    <ul>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Enter Customer requests</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Generate Proforma Invoice</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Generate QSF </li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Generate Calculation Sheets</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> and much more...</li>
+                    </ul>
+                    <div class="mb20"></div>
+                    <strong>No account? <a href="signup.html">Contact Administrator</a></strong>
+                </div><!-- signin0-info -->
+            
+            </div><!-- col-sm-7 -->
+            
+            <div class="col-md-5">
+                
+                <form id="login_form" action="{% url 'man:account_bg' %}" class="login-form-signin" method="post">
+                    {% csrf_token %}
+                    <h4 class="nomargin">Sign In</h4>
+                    <p class="mt5 mb20">Login to access your the system.</p>
+                
+                    <input name="username" type="text" class="form-control uname" placeholder="Username" />
+                    <input name="password" type="password" class="form-control pword" placeholder="Password" />
+                    <a href=""><small>Forgot Your Password?</small></a>
+                    <button type="submit"  class="btn btn-success btn-block">Sign In</button>
+                </form>
+            </div><!-- col-sm-5 -->
+            
+        </div><!-- row -->
+        
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2014. All Rights Reserved. MBG ltd
+            </div>
+            <div class="pull-right">
+                Created By: <a href="#" target="_blank">Diluo Company Limited</a>
+            </div>
+        </div>
+        
+    </div><!-- signin -->
+  
+</section>
+
+<script>
+{# alert("page loaded");#}
+{#    $('#login_form').submit(function(e) {#}
+{#        alert('click');#}
+{#        e.preventDefault();#}
+{#        $.ajax({ // create an AJAX call...#}
+{#            data: $(this).serialize(), // get the form data#}
+{#            type: $(this).attr('method'), // GET or POST#}
+{#            url: $(this).attr('action'), // the file to call#}
+{#            success: function(response) { // on success..#}
+{##}
+{#                if(response.is_valid == true){#}
+{#                    window.location.href = response.redirect_url;#}
+{##}
+{#                }else{#}
+{#                    $('#error_div').html(response.data);#}
+{#                    $('#error_div').fadeIn(700);#}
+{#                    $('#error_div').fadeOut(15000);#}
+{##}
+{#                }#}
+{##}
+{##}
+{#            },#}
+{#            error: function(e, x, r) { // on error..#}
+{#                alert("error");#}
+{#                $('#error_div').html(e);#}
+{#            }#}
+{#        });#}
+{#     });#}
+
+</script>
+{#<script type="text/javascript" src="{% static 'js/site-custom.js' %}"></script>#}
+<script src="{% static 'js/jquery-1.10.2.min.js'%}"></script>
+{#<script src="{% static 'js/jquery-migrate-1.2.1.min.js'%}"></script>#}
+{#<script src="{% static 'js/bootstrap.min.js'%}"></script>#}
+{#<script src="{% static 'js/modernizr.min.js'%}"></script>#}
+{#<script src="{% static 'js/retina.min.js'%}"></script>#}
+
+<script src="{% static 'js/custom.js'%}"></script>
+
+</body>
+</html>

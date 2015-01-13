@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+
+{% block pageName %}
+   <i class="fa fa-plus"></i> Staff
+{% endblock %}
+
+{% block pageSubs %}
+    Action page for staff members and roles
+{% endblock %}
+
+{% block pageNav %}
+    Staff
+{% endblock %}
+
+{% block pageContent %}
+
+        <div class="panel-body">
+          <h5 class="subtitle mb5">Help info!</h5>
+          <p class="m20">This view contains full details about staff and their roles on the system. Use this page to Add news staff members and Edit/Delete existing staff members</p>
+          <br />
+              <p>
+                <button class="btn btn-primary btn-lg pull-right" id="btnAdd" type="button"><i class="glyphicon glyphicon-plus"></i> Add New Member</button>
+              </p>
+          <div class="table-responsive">
+            <table class="table" id="staff_table">
+              <thead>
+                  <tr>
+                    <th>UserName</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Business Number</th>
+                    <th>Role</th>
+                    <th>Date Created</th>
+                    <th>Delete/Edit</th>
+                 </tr>
+              </thead>
+              <tbody>
+              {% for detail in staff.all %}
+                 <tr class="gradeX" id="tablerecord{{ detail.id }}" data-id="{{ detail.id }}">
+                    <td id="username">{{ detail.user.username }}</td>
+                    <td id="firstname">{{ detail.user.first_name }}</td>
+                    <td id="lastname">{{ detail.user.last_name }}</td>
+                    <td id="email">{{ detail.user.email }}</td>
+                    <td id="phonenumber">{{ detail.phone_number }}</td>
+                    <td id="role" class="center">{{ detail.get_position_display }}</td>
+                    <td  id="datejoined" class="center">{{ detail.created_date }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <span><button current_user_id="{{ user.id }}" {% if user.id == detail.user.id %} disabled="disabled" {% endif %} user_id="{{ detail.user.id }}" id="{{ detail.id }}" class="btn btn-default btnDelete" type="button"><i class="glyphicon glyphicon-remove"></i></button></span>
+                            <span><button current_user_id="{{ user.id }}" user_id="{{ detail.user.id }}" id="{{ detail.id }}" class="btn btn-default btnEdit" type="button"><i class="glyphicon glyphicon-edit"></i></button></span>
+                        </div>
+                    </td>
+                 </tr>
+              {% endfor %}
+              </tbody>
+           </table>
+          </div><!-- table-responsive -->
+          <div class="clearfix mb30"></div>
+        </div><!-- panel-body -->
+
+
+        {#  <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Confirm delete</a>#}
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                  <p>You are deleting a record and this will mean you will never see this record again.</p>
+                  <P>Are you sure you want to delete?</P>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="yesDelete" action="{% url 'man:staffSave' %}" type="button" class="btn btn-danger">Delete</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Staff Panel</h4>
+                </div>
+                <span id="modal_error_div" style="display:none" class="alert alert-danger"></span>
+{#                <form id="edit-modal-form" data-validate="parsley" class="form-horizontal row-border" action="{% url 'man:staffSave' %}" method="post" enctype="multipart/form-data">#}
+                <form id="edit-modal-form" role="form" class="form-horizontal validate-upload-form" action="{% url 'man:staffSave' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                      <!--form-group start-->
+                    <div class="form-group lable-padd">
+                      <label class="col-sm-3">Role</label>
+                      <div class="col-sm-6">
+                            <input type="hidden" id="haccountType" name="accountType" value="" />
+                          <select id="saccountType" name="accountType" class="form-control parsley-validated" required>
+                               <option value="">-select role-</option>
+                             {% for perms in permissions %}
+                               <option value="{{ perms }}">{{ perms }}</option>
+                             {% endfor %}
+                         </select>
+                      </div>
+                    </div>
+
+                      <input type="hidden" id="item_id" name="item_id">
+                      <input type="hidden" id="user_id" name="user_id">
+
+                      <!--form-group end-->
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Username</label>
+                        <div class="col-sm-6">
+                          <input id="susername" name="username" type="text" class="form-control parsley-validated" required placeholder="(user name required)">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">First Name</label>
+                        <div class="col-sm-6">
+                          <input id="sfirstName" name="firstname" type="text" class="form-control parsley-validated" required placeholder="(staff first name)">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Last Name</label>
+                        <div class="col-sm-6">
+                          <input id="slastName" name="lastname" type="text" class="form-control parsley-validated" required placeholder="(staff last name)">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Business Number</label>
+                        <div class="col-sm-6">
+                          <input id="smobileNumber" name="phone" type="text" class="form-control parsley-validated" required placeholder="Primary phone number" data-type="phone">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                          <label class="col-sm-3">Email</label>
+                          <div class="col-sm-6">
+                            <input id="semail" name="staff_email" type="text" class="form-control parsley-validated" placeholder="Email address (Optional)" data-type="email">
+                          </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Password</label>
+                        <div class="col-sm-6">
+                          <input type="password" id="password" name="password" placeholder="**********" class="form-control parsley-validated">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Confirm Password</label>
+                        <div class="col-sm-6">
+                          <input type="password" id="cpassword" name="cpassword" placeholder="**********" class="form-control parsley-validated">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                          <label class="col-sm-3">Signature</label>
+                          <div class="col-sm-6">
+                              <input name="upload_signature" type="file" id="upload_signature" class="file-pos">
+                          </div>
+                      </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="yesEdit" action="{% url 'man:staffSave' %}" class="btn btn-primary">Update</button>
+                </div>
+                </form>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+{% endblock %}
+
+
+
+
+{% block extra_js %}
+    <script>
+
+      $('button.btnDelete').on('click', function (e) {
+          e.preventDefault();
+          var id = $(this).attr('id');
+          var user_id = $(this).attr('user_id');
+          $('#myModal').attr('mode-id', id);
+          $('#myModal').attr('user-id', user_id);
+          $('#myModal').modal('show');
+      });
+
+      $('#yesDelete').click(function () {
+          // handle deletion here
+          var url = $(this).attr('action') // the file to call
+          var id = $('#myModal').attr('mode-id');
+          var user_id = $('#myModal').attr('user-id');
+
+          $.post(url, { item_id:id, user_id:user_id, status: "D", csrfmiddlewaretoken: '{{ csrf_token }}' }, function( response ) {
+                if(response.is_valid == true){
+                    $('#success_div').html(response.data);
+                    $('#success_div').fadeIn(700);
+                    $('#success_div').fadeOut(10000);
+                    var target_row = $('#tablerecord' + id).get(0);
+                    target_row.remove();
+{#                    alert(target_row);#}
+{#                    var oTable = $('#dynamic-table').dataTable();#}
+{#                    var aPos = oTable.fnGetPosition(target_row);#}
+{#                    oTable.fnDeleteRow(aPos);#}
+                    $('#myModal').modal('hide');
+
+                }else{
+                    $('#error_div').html(response.data);
+                    $('#error_div').fadeIn(700);
+                    $('#error_div').fadeOut(10000);
+                }
+
+          }, "json");
+
+      });
+
+      $('button.btnEdit').on('click', function (e) {
+          e.preventDefault();
+          var id = $(this).attr('id');
+          var user_id = $(this).attr('user_id');
+          var current_user_id = $(this).attr('current_user_id');
+
+          if (current_user_id == user_id){
+              $('#saccountType').prop('disabled', true);
+              $("#haccountType").val($(this).closest('tr').find('td#role').text());
+          }else{
+              $('#saccountType').prop('disabled', false);
+          }
+
+          $("#saccountType").val($(this).closest('tr').find('td#role').text());
+          $('#item_id').val(id);
+          $('#user_id').val(user_id);
+          $('#susername').val($(this).closest('tr').find('td#username').text());
+          $('#sfirstName').val($(this).closest('tr').find('td#firstname').text());
+          $('#slastName').val($(this).closest('tr').find('td#lastname').text());
+          $('#smobileNumber').val($(this).closest('tr').find('td#phonenumber').text());
+          $('#semail').val($(this).closest('tr').find('td#email').text());
+
+          $('#editModal').attr('mode-id', id);
+          $('#editModal').modal('show');
+      });
+
+      $('#btnAdd').on('click', function (e) {
+          e.preventDefault();
+          $('#item_id').val('');
+          $('#user_id').val('');
+          $('#saccountType').prop('disabled', false);
+          $("#saccountType").val('');
+          $('#item_id').val('');
+          $('#user_id').val('');
+          $('#susername').val('');
+          $('#sfirstName').val('');
+          $('#slastName').val('');
+          $('#smobileNumber').val('');
+          $('#semail').val('');
+          $('#password').val('');
+          $('#cpassword').val('');
+
+          $('#editModal').attr('mode-id', 0);
+          $('#editModal').modal('show');
+
+      });
+
+      $('#edit-modal-form').submit(function(e) {
+        e.preventDefault();
+        var id = $('#editModal').attr('mode-id');
+
+            var data = new FormData($('#edit-modal-form').get(0));
+            $.ajax({ // create an AJAX call...
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(response) { // on success..
+                    if(response.is_valid == true){
+                        $('#success_div').html(response.data);
+                        $('#success_div').fadeIn(700);
+                        $('#success_div').fadeOut(10000);
+
+                        if (id >0){
+
+                            $('#tablerecord'+id).find('td#role').text($('#saccountType').val());
+                            $('#tablerecord'+id).find('td#firstname').text($('#sfirstName').val());
+                            $('#tablerecord'+id).find('td#lastname').text($('#slastName').val());
+                            $('#tablerecord'+id).find('td#username').text($('#susername').val());
+                            $('#tablerecord'+id).find('td#phonenumber').text($('#smobileNumber').val());
+                            $('#tablerecord'+id).find('td#email').text($('#semail').val());
+
+                        }else{
+                            var action_btn = '<div class="btn-group"><span><button user_id="" id="" class="btn btn-default btnDelete" type="button">' +
+                                    '<i class="glyphicon glyphicon-remove"></i></button></span><span>' +
+                                    '<button current_user_id="" user_id="" id="" class="btn btn-default btnEdit" type="button">' +
+                                    '<i class="glyphicon glyphicon-edit"></i></button></span></div>';
+                            action_btn='Refresh Page';
+
+                            var new_record = '<tr class="gradeX" id="tablerecord" data-id="">' +
+                                    '<td id="username">'+$('#susername').val()+'</td>' +
+                                    '<td id="firstname">'+$('#sfirstName').val()+'</td>' +
+                                    '<td id="lastname">'+$('#slastName').val()+'</td>' +
+                                    '<td id="email">'+$('#semail').val()+'</td>' +
+                                    '<td id="phonenumber">'+$('#smobileNumber').val()+'</td>' +
+                                    '<td id="role" class="center">'+$('#saccountType').val()+'</td>' +
+                                    '<td  id="datejoined" class="center">Just now</td>' +
+                                    '<td>' +action_btn+
+                                    '</td></tr>';
+                                $('#staff_table tr:last').after(new_record);
+                        }
+
+                        $('#editModal').modal('hide');
+
+                    }else{
+                        $('#modal_error_div').html(response.data);
+                        $('#modal_error_div').fadeIn(700);
+                        $('#modal_error_div').fadeOut(10000);
+                    }
+                },
+                error: function(e, x, r) { // on error..
+                    alert("error");
+                    $('#modal_error_div').html(e);
+                }
+            });
+
+{#        }else{#}
+{##}
+{#        }#}
+    });
+
+
+    $(function() {
+	//Parsley Form Validation
+    //While the JS is not usually required in Parsley, we will be modifying
+    //the default classes so it plays well with Bootstrap
+    $('#edit-modal-form').parsley({
+        successClass: 'has-success',
+        errorClass: 'has-error',
+        errors: {
+            classHandler: function(el) {
+                return $(el).closest('.form-group');
+            },
+            errorsWrapper: '<ul class=\"help-block list-unstyled\"></ul>',
+            errorElem: '<li></li>'
+        }
+    });
+});
+
+    </script>
+
+{% endblock %}

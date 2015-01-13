@@ -1,0 +1,447 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css %} {% endblock %}
+
+{% block pageName %}
+   <i class="fa fa-home"></i> Calculation
+{% endblock %}
+
+{% block pageSubs %}
+    Calculation of order details
+{% endblock %}
+
+{% block pageNav %}
+    dashboard
+{% endblock %}
+
+{% block pageContent %}
+
+
+
+    <div class="contentpanel">
+
+      <div class="row">
+
+        <div class="col-md-6">
+{#          <h5 class="subtitle mb5">Duty Calculation Form</h5>#}
+{#          <p class="mb20">Use <code>.table-striped</code> to add zebra-striping to any table row within the <code>tbody</code></p>#}
+          <div class="table-responsive">
+          <table class="table table-striped mb30">
+            <thead>
+              <tr>
+                <th>DUTIE CALCULATION FORM</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PURCHASE PRICE MIN. DEPR.</td>
+                <td></td>
+                <td>{{ order.truck_age.year }}</td>
+                <td>{{ calculated.purchase_price_minus_depreciation }}</td>
+              </tr>
+              <tr>
+                <td>COST OF FREIGHT</td>
+                <td></td>
+                <td>{{ calculated.cost_of_frieght }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>INSURANCE ON FREIGHT</td>
+                <td>{{ calculated.insurance_on_freight_percent }}</td>
+                <td>{{ calculated.insurance_on_freight }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>DUTIABLE VALUE</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.dutiable_value }}</td>
+              </tr>
+              <tr>
+                <td>IMPORT DUTIES</td>
+                <td>{{ calculated.import_duties_percent }}%</td>
+                <td>{{ calculated.import_duties }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>PURCHASE PRICE + DUTIES</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.purchase_prices_plus_duties }}</td>
+              </tr>
+              <tr>
+                <td>IMPORT SPECIAL TAX</td>
+                <td>{{ calculated.IMPORT_SPECIAL_TAX }}</td>
+                <td>{{ calculated.IMPORT_SPECIAL_TAX_V }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>IMPORT EXCISE</td>
+                <td>{{ calculated.IMPORT_EXCISE }}</td>
+                <td>{{ calculated.IMPORT_EXCISE_V }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>PROCESS FEE</td>
+                <td>{{ calculated.PROCESS_FEE }}</td>
+                <td>{{ calculated.PROCESS_FEE_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>ECOWAX LEVI</td>
+                <td>{{ calculated.ECOWAX_LEVI }}</td>
+                <td>{{ calculated.ECOWAX_LEVI_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>EXPORT DEVISE LEVI</td>
+                <td>{{ calculated.EXPORT_DEVISE_LEVI }}</td>
+                <td>{{ calculated.EXPORT_DEVISE_LEVI_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>VEHICLE EXAMINATION</td>
+                <td>{{ calculated.VEHICLE_EXAMINATION }}</td>
+                <td>{{ calculated.VEHICLE_EXAMINATION_V }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>NET WORK CHARGE</td>
+                <td>{{ calculated.NET_WORK_CHARGE }}</td>
+                <td>{{ calculated.NET_WORK_CHARGE_V }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>NET CHARGE VAT</td>
+                <td>{{ calculated.NET_CHARGE_VAT }}</td>
+                <td>{{ calculated.NET_CHARGE_VAT_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>IMPORT NHIL</td>
+                <td>{{ calculated.IMPORT_NHIL }}</td>
+                <td>{{ calculated.IMPORT_NHIL_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>SIL</td>
+                <td>{{ calculated.SIL }}</td>
+                <td>{{ calculated.SIL_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>NET CHARGE NHIL</td>
+                <td>{{ calculated.NET_CHARGE_NHIL }}</td>
+                <td>{{ calculated.NET_CHARGE_NHIL_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>VAT</td>
+                <td>{{ calculated.VAT }}</td>
+                <td>{{ calculated.VAT_V }}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>TOTAL DUTY+VAT</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.TOTAL_DUTY_PLUS_VAT }}</td>
+              </tr>
+              <tr>
+                <td>DUTIES IN GHC</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.DUTIES_IN_GHC }}</td>
+              </tr>
+              <tr>
+                <td>SHIPPING LINE LOCAL</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.SHIPPING_LINE_LOCAL_COST }}</td>
+              </tr>
+              <tr>
+                <td>SAFEBOND COSTS</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.SAFE_BOND_COST }}</td>
+              </tr>
+              <tr>
+                <td>CLEARING AGENT</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.CLEARING_AGENT_COST }}</td>
+              </tr>
+              <tr>
+                <td>TRIAL NUMBER </td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.TRAIL_NUMBER_COST }}</td>
+              </tr>
+              <tr>
+                <td>WAREHOUSING COSTS</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.WAREHOUSING_COSTS }}</td>
+              </tr>
+              <tr>
+                <td>FUEL </td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.FUEL_COST }}</td>
+              </tr>
+              <tr>
+                <td>MISCELLANEOUS</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.MISCELLANEOUS_COST }}</td>
+              </tr>
+              <tr>
+                <td>TOTAL LOCAL COST</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.TOTAL_LOCAL_COST }}</td>
+              </tr>
+              <tr>
+                <td>TOTAL DUTIES + LOCAL COSTS</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.TOTAL_DUTIIES_PLUS_LOCAL_COST }}</td>
+              </tr>
+              <tr>
+                <td>IN GHC</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.TOTAL_DUTIIES_PLUS_LOCAL_COST_IN_GHC }}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div><!-- table-responsive -->
+        </div><!-- col-md-6 -->
+
+
+        <div class="col-md-6">
+
+          <div class="table-responsive">
+          <table class="table table-striped mb30">
+            <thead>
+              <tr>
+                <th>CALCULATING SELLING PRICE NEW TRUCKS/TOP-USED</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>MANEXPRICE</b></td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.MANEXPRICE }}</td>
+              </tr>
+              <tr>
+                <td>DISCOUNT MAN </td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.DISCOUNT_MAN }}</td>
+              </tr>
+              <tr>
+                <td>EXTERNAL EQUIPMENT </td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.EXTERNAL_EQUIPMENT }}</td>
+              </tr>
+              <tr>
+                <td>SPECIAL DISCOUNT </td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.SPECIAL_DISCOUNT }}</td>
+              </tr>
+              <tr>
+                <td>FOB CHARGES</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.FOB_CHARGES }}</td>
+              </tr>
+              <tr>
+                <td>SEA FREIGHT TO TEMA</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.SEA_FRIEGHT_TO_TEMA }}</td>
+              </tr>
+              <tr>
+                <td><b>GROSS CFR PRICE 1</b></td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.GROSS_CFR_PRICE_1 }}</td>
+              </tr>
+              <tr>
+                <td>LC COSTS</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.LC_COST }}</td>
+              </tr>
+              <tr>
+                <td>INTEREST</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.cost_of_frieght }}</td>
+              </tr>
+              <tr>
+                <td><b>GROSS CFR PRICE 2</b></td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.GROSS_CFR_PRICE_2 }}</td>
+              </tr>
+              <tr>
+                <td>VAT DUTIES + CLEARING COSTS</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.VAT_DUTIES_CLEARING_COSTS }}</td>
+              </tr>
+              <tr>
+                <td><b>GROSS CFR PRICE INC DUTIES + VAT</b></td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.GROSS_CFR_PRICE_INC_DUTIES_PLUS_VAT }}</td>
+              </tr>
+              <tr>
+                <td>LOCAL BANK CHARGES</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.LOCAL_BANK_CHARGES }}</td>
+              </tr>
+              <tr>
+                <td>REGISTRATION COSTS </td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.REGISTRATION_COSTS }}</td>
+              </tr>
+              <tr>
+                <td>SERVICE COSTS/WORKSHOP</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.SERVICE_COST_WORKSHOP }}</td>
+              </tr>
+              <tr>
+                <td>EXTRA CHARGES L/C BANK COSTS </td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.EXTRA_BANK_CHARGE }}</td>
+              <tr>
+                <td><b>MBG TOTAL COST P.U. + VAT + DUTIES</b></td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.MBG_TOTAL_COST_P_U_PLUS_VAT_PLUS_DUTIES }}</td>
+              <tr>
+                <td><b>UNIT PRICE EX VAT/NHILL</b></td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.UNIT_PRICE_EX_VAT_NHILL }}</td>
+              </tr>
+              <tr>
+                <td>NET-MARGIN </td>
+                <td>{{ calculated2.MARGIN_PERCENT }}%</td>
+                <td></td>
+                <td>{{ calculated2.MARGIN_VALUE }}</td>
+              </tr>
+              <tr>
+                <td><b>SALES PRICE EX VAT/NHILL</b></td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.SALES_PRICE_EX_VAT_NHILL }}</td>
+              </tr>
+              <tr>
+                <td>VAT FOR CUSTOMER </td>
+                <td>{{ calculated2.VAT_FOR_CUSTOMER_PERCENT }}%</td>
+                <td></td>
+                <td>{{ calculated2.VAT_FOR_CUSTOMER }}</td>
+              </tr>
+              <tr>
+                <td>SALE PRICE INC VAT/NHILL</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.SALE_PRICE_INC_VAT_NHILL }}</td>
+              </tr>
+
+            </tbody>
+          </table>
+          </div><!-- table-responsive -->
+
+          <div class="table-responsive">
+          <table class="table table-striped mb30">
+            <thead>
+              <tr>
+                <th>VAT TABLE</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>VAT FROM MBG</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.VAT_FROM_MBG }}</td>
+              </tr>
+              <tr>
+                <td>VAT FROM CUSTOMER</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.VAT_FROM_CUSTOMER }}</td>
+              </tr>
+              <tr>
+                <td>VAT TO CONTRIBUTE/OUTGOING</td>
+                <td></td>
+                <td></td>
+                <td>{{ calculated2.VAT_TO_CONTRIBUTE_OUTGOING }}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div><!-- table-responsive -->
+
+          <div class="table-responsive">
+          <table class="table table-striped mb30">
+            <thead>
+              <tr>
+                <th>SPECS ON THIS ORDER</th>
+                <th></th>
+                <th>UNIT MARGIN/PROFIT</th>
+                <th>TOTAL MARGIN/PROFIT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SELECT QUANTITY</td>
+                <td></td>
+                <td>{{ calculated2.UNIT_MARGIN }}</td>
+                <td>{{ calculated2.TOTAL_MARGIN }}</td>
+              </tr>
+              <tr>
+            </tbody>
+          </table>
+          </div><!-- table-responsive -->
+
+        </div><!-- col-md-6 -->
+
+      </div><!-- row -->
+
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %} {% endblock %}
+

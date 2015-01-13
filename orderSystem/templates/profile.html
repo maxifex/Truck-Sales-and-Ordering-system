@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block pageName %}
+    <i class="fa fa-user"></i> Profile
+{% endblock %}
+
+{% block pageSubs %}
+    User profile: View & Edit
+{% endblock %}
+
+{% block pageNav %}
+    profile
+{% endblock %}
+
+{% block pageContent %}
+
+
+        <div class="row">
+                  <div class="profile-nav col-lg-3">
+                      <div class="panel">
+                          <div class="user-heading round">
+                              <a href="#">
+                              <img width="280px" src="{% if profile.employee.avatar %}{{ profile.employee.avatar.url }}{% else %}{% static 'images/default_avatar.png'%}{% endif %}" id="profile_avatar" class="profile_avatar" alt=""> </a>
+                              <h1 id="profile_infoname">{{ profile.last_name }} {{ profile.first_name }}</h1>
+                              <p id="profile_infomail">{{profile.email}}</p>
+                              <p>{{ profile.employee.get_position_display }}</p>
+                          </div>
+
+                          <ul class="nav nav-pills nav-stacked">
+{#                              <li><a href="profile.html"> <i class="icon-user"></i> Profile</a></li>#}
+                              <li class="active"><a href="#"> <i class="icon-edit"></i> Edit profile</a></li>
+{#                              <li><a href="#"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">7</span></a></li>#}
+
+                          </ul>
+
+                      </div>
+                  </div>
+                  <div class="profile-info col-lg-9">
+                      <div class="panel">
+                          <div class="panel-body bio-graph-info">
+                              <h1> Profile Info</h1>
+                              <form id="validate-profile-form" role="form" class="form-horizontal validate-profile-form" action="{% url 'man:profileSave' %}" method="post">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="edit-type" value="info">
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">Username</label>
+                                      <div class="col-lg-6">
+                                          <input type="text" placeholder=" " name="profile_username" id="profile_username" class="form-control parsley-validated profile" required value="{{ profile.username }}">
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">First Name</label>
+                                      <div class="col-lg-6">
+                                          <input name="profile_firstname" id="profile_firstname" type="text" placeholder=" " id="f-name" class="form-control  parsley-validated profile" required value="{{ profile.first_name }}">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">Last Name</label>
+                                      <div class="col-lg-6">
+                                          <input name="profile_lastname" id="profile_lastname" type="text" placeholder=" " id="l-name" class="form-control  parsley-validated profile" required value="{{ profile.last_name }}">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">Email</label>
+                                      <div class="col-lg-6">
+                                          <input name="profile_email" type="text" placeholder=" " id="profile_email" class="form-control parsley-validated profile" required value="{{ profile.email }}">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-lg-2 control-label">Business Phone</label>
+                                      <div class="col-lg-6">
+                                          <input name="profile_phone" type="text" placeholder=" " data-type="phone" id="mobile" class="form-control parsley-validated profile" required value="{{ profile.employee.phone_number }}">
+                                      </div>
+                                  </div>
+
+{#                                  <div class="form-group">#}
+{#                                      <label class="col-lg-2 control-label">Gender</label>#}
+{#                                      <div class="col-lg-6">#}
+{#                                          <select id="profile_gender" name="profile_gender" class="txtBox form-control parsley-validated" required>#}
+{#                                          <option value="">-select-</option>#}
+{#                                          <option value="F" {% if profile.agents.gender == 'F' %} selected="selected" {% endif %}>Female</option>#}
+{#                                          <option value="M" {% if profile.agents.gender == 'M' %} selected="selected" {% endif %}>Male</option>#}
+{#                                          </select>#}
+{#                                      </div>#}
+{#                                  </div>#}
+
+                                  <div class="form-group">
+                                      <div class="col-lg-offset-2 col-lg-10">
+                                          <button class="btn btn-danger" type="submit">Save</button>
+                                          <button class="btn btn-default" type="button">Cancel</button>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="panel">
+                          <div class="box-info">
+                              <div class="panel-body">
+                              <h2> Sets New Password</h2>
+                                  <form id="validate-profile-form" role="form" class="form-horizontal validate-profile-form" action="{% url 'man:profileSave' %}" method="post">
+                                      {% csrf_token %}
+                                      <input type="hidden" name="edit-type" value="password">
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Current Password</label>
+                                          <div class="col-lg-6">
+                                              <input name="profile_password" type="password" placeholder=" " required id="c-pwd" class="form-control parsley-validated password_field">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">New Password</label>
+                                          <div class="col-lg-6">
+                                              <input name="profile_new_passord" type="password" placeholder=" " required id="n-pwd" class="form-control parsley-validated password_field">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Re-type New Password</label>
+                                          <div class="col-lg-6">
+                                              <input name="profile_confirm_password" type="password" placeholder=" " required id="rt-pwd" class="form-control parsley-validated password_field">
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                          <div class="col-lg-offset-2 col-lg-10">
+                                              <button class="btn btn-primary" type="submit">Reset</button>
+                                              <button class="btn btn-default" type="button">Cancel</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="panel">
+                          <div class="box-info">
+                              <div class="panel-body">
+                              <h2> Change Profile Picture</h2>
+                                  <form id="validate-profile-form" role="form" class="form-horizontal validate-upload-form" action="{% url 'man:profileSave' %}" method="post" enctype="multipart/form-data">
+                                      {% csrf_token %}
+                                      <input type="hidden" name="edit-type" value="avatar">
+                                      <div class="form-group">
+                                          <label class="col-lg-2 control-label">Change Picture</label>
+                                          <div class="col-lg-6">
+                                              <input name="upload_avatar" type="file" id="upload_avatar" class="file-pos" required>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                          <div class="col-lg-offset-2 col-lg-10">
+                                              <button id="avatar_change" class="btn btn-primary" type="submit">Save</button>
+                                              <button class="btn btn-default" type="button">Cancel</button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+$(function() {
+	//Parsley Form Validation
+    //While the JS is not usually required in Parsley, we will be modifying
+    //the default classes so it plays well with Bootstrap
+{#    $('#validate-profile-form').parsley({#}
+{#        successClass: 'has-success',#}
+{#        errorClass: 'has-error',#}
+{#        errors: {#}
+{#            classHandler: function(el) {#}
+{#                return $(el).closest('.form-group');#}
+{#            },#}
+{#            errorsWrapper: '<ul class=\"help-block list-unstyled\"></ul>',#}
+{#            errorElem: '<li></li>'#}
+{#        }#}
+{#    });#}
+});
+
+
+$('.validate-profile-form').submit(function(e) {
+    e.preventDefault();
+{#    if ( $(this).parsley('validate') ) {#}
+        $('#success_div').html('');
+        $('#error_div').html('');
+
+        $.ajax({ // create an AJAX call...
+            data: $(this).serialize(), // get the form data
+            type: $(this).attr('method'), // GET or POST
+            url: $(this).attr('action'), // the file to call
+            success: function(response) { // on success..
+
+                if(response.is_valid == true){
+                    $('#success_div').html(response.data);
+                    $('#success_div').fadeIn(700);
+
+                    //set static form values as a result
+                    $('#profile_infoname').text($('#profile_lastname').val()+ ' ' +$('#profile_firstname').val());
+                    $('#profile_infomail').text($('#profile_email').val());
+
+                    //also empty password fields if they are set
+                    $('.password_field').val('');
+
+                    $('.validate-profile-form').parsley('destroy');
+                    // Re-assign parsley to the form to include the second page now
+                    $(this).parsley();
+                    $('#success_div').fadeOut(10000);
+                }else{
+                    $('#error_div').html(response.data);
+                    $('#error_div').fadeIn(700);
+                    $('#error_div').fadeOut(10000);
+
+                }
+
+            },
+            error: function(e, x, r) { // on error..
+                alert("error");
+                $('#error_div').html(e);
+            }
+        });
+{##}
+{#    }else{#}
+{##}
+{##}
+{#    }#}
+});
+
+
+function upload(event) {
+    event.preventDefault();
+    var data = new FormData($('.validate-upload-form').get(0));
+
+    $.ajax({
+        url: $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: data,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if(response.is_valid == true){
+                //alert('success');
+                $('#success_div').html(response.data);
+                $('#success_div').fadeIn(700);
+
+                //set change profile images now
+                $('.profile_avatar').attr('src', response.avatar_url);
+
+                $('#upload_avatar').val('');
+
+                $('.validate-profile-form').parsley('destroy');
+                $(this).parsley();
+                $('#success_div').fadeOut(10000);
+            }else{
+                //alert("problem");
+                $('#error_div').html(response.data);
+                $('#error_div').fadeIn(700);
+                $('#error_div').fadeOut(10000);
+
+            }
+        },
+        error: function(e, x, r) { // on error..
+            alert("error");
+            $('#error_div').html(e);
+        }
+    });
+    return false;
+    }
+
+$(function() {
+        $('.validate-upload-form').submit(upload);
+});
+
+$(function() {
+     $('.validate-upload-form').submit(uploadFile);
+});
+
+
+</script>
+
+{% endblock %}
+

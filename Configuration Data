@@ -1,0 +1,294 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.11
+-- Dumped by pg_dump version 9.1.11
+-- Started on 2014-11-27 11:25:29 GMT
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2042 (class 0 OID 34908)
+-- Dependencies: 181 2063
+-- Data for Name: orderSystem_country; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (1, 'Ghana', '2014-10-08 08:10:41.388864+00', 1, '2014-10-08 08:10:41.389004+00', 1, 'A', 'Tema Port', 'GH');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (3, 'TOGO', '2014-10-23 22:10:38.302404+00', 1, '2014-10-23 22:10:38.302485+00', 1, 'A', 'TOGO PORT', 'TG');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (2, 'Germany', '2014-10-09 19:24:11.781737+00', 1, '2014-10-09 19:24:11.781851+00', 1, 'A', ' ', 'DE');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (4, 'LIBERIA', '2014-11-27 09:42:27.114786+00', 1, '2014-11-27 09:42:27.115199+00', 1, 'A', 'MONROVIA PORT', 'LB');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (5, 'MALI', '2014-11-27 09:42:51.076178+00', 1, '2014-11-27 09:42:51.076194+00', 1, 'A', 'TEMA PORT', 'ML');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (6, 'BURKINO FASO', '2014-11-27 09:43:25.358931+00', 1, '2014-11-27 09:43:25.359001+00', 1, 'A', 'NO PORT', 'BF');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (7, 'COTE D''IVORE', '2014-11-27 09:43:40.89511+00', 1, '2014-11-27 09:43:40.895167+00', 1, 'A', 'NO PORT', 'CI');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (8, 'SIERRA LEONE', '2014-11-27 09:43:58.201589+00', 1, '2014-11-27 09:43:58.201768+00', 1, 'A', 'NO PORT', 'SL');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (9, 'GUINEE', '2014-11-27 09:44:09.911344+00', 1, '2014-11-27 09:44:09.911386+00', 1, 'A', 'NO PORT', 'PG');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (10, 'GAMBIA', '2014-11-27 09:44:21.190138+00', 1, '2014-11-27 09:44:21.190221+00', 1, 'A', 'NO PORT', 'GM');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (11, 'SENEGAL', '2014-11-27 09:44:34.540656+00', 1, '2014-11-27 09:44:34.540701+00', 1, 'A', 'SENEGAL', 'SN');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (12, 'GUINEE - BISAU', '2014-11-27 09:44:51.430046+00', 1, '2014-11-27 09:44:51.430109+00', 1, 'A', 'NO PORT', 'GW');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (13, 'NIGERIA', '2014-11-27 09:45:06.9354+00', 1, '2014-11-27 09:45:06.935485+00', 1, 'A', 'NO PORT', 'NG');
+INSERT INTO "orderSystem_country" (id, name, created_date, created_by_id, modified_date, modified_by_id, status, port_name, iso2code) VALUES (14, 'NIGER', '2014-11-27 09:45:22.602877+00', 1, '2014-11-27 09:45:22.602932+00', 1, 'A', 'NO PORT', 'NE');
+
+
+
+--
+-- TOC entry 2067 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: orderSystem_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_country_id_seq"', 14, true);
+
+
+--
+-- TOC entry 2052 (class 0 OID 43140)
+-- Dependencies: 193 2063
+-- Data for Name: orderSystem_currency; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_currency" (id, name, code, is_default, status, symbol) VALUES (1, 'Ghana Cedis', 'GHS', 'N', 'A', 'GHS');
+INSERT INTO "orderSystem_currency" (id, name, code, is_default, status, symbol) VALUES (2, 'Euro', 'EUR', 'Y', 'A', '€');
+
+
+--
+-- TOC entry 2068 (class 0 OID 0)
+-- Dependencies: 192
+-- Name: orderSystem_currency_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_currency_id_seq"', 2, true);
+
+
+--
+-- TOC entry 2060 (class 0 OID 43409)
+-- Dependencies: 203 2063
+-- Data for Name: orderSystem_customconfiguration; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (1, 'FOB_CHARGES', '900', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (2, 'SEA_FRIEGHT_TO_TEMA', '2450', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (3, 'CALCULATION_MANEX', '1404', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (4, 'INTEREST_RATE', '0.0', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (5, 'COST_OF_FRIEGHT', '2898.55', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (6, 'INSURANCE_ON_FREIGHT', '262.14', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (7, 'INSURANCE_ON_FREIGHT_PERCENT', '10.3', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (8, 'CURRENT_EXCHANGE_RATE', '3.91', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (9, 'SHIPPING_LINE_LOCAL_COST_GHC', '450', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (10, 'SAFE_BOND_COST_GHC', '400', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (11, 'CLEARING_AGENT_COST_GHC', '300', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (12, 'TRAIL_NUMBER_COST_GHC', '80', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (14, 'FUEL_COST_GHC', '20', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (15, 'MISCELLANEOUS_COST_GHC', '100', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (13, 'WAREHOUSING_COSTS_GHC', '150', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (16, 'LOCAL_BANK_CHARGE_PERCENT', '1.5', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (17, 'REGISTRATION_COSTS_GHC', '0.0', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (18, 'SERVICE_COST_WORKSHOP', '200', 'A');
+INSERT INTO "orderSystem_customconfiguration" (id, configuration, value, status) VALUES (19, 'VAT_FOR_CUSTOMER', '17.5', 'A');
+
+
+--
+-- TOC entry 2069 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: orderSystem_customconfiguration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_customconfiguration_id_seq"', 19, true);
+
+
+--
+-- TOC entry 2062 (class 0 OID 43417)
+-- Dependencies: 205 2063
+-- Data for Name: orderSystem_customsrate; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (1, 'IMPORT_DUTIES', 5, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (2, 'VAT', 15, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (3, 'IMPORT_SPECIAL_TAX', 0, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (4, 'IMPORT_EXCISE', 0, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (5, 'PROCESS_FEE', 0, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (6, 'ECOWAX_LEVI', 0.5, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (7, 'EXPORT_DEVISE_LEVI', 0.5, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (8, 'VEHICLE_EXAMINATION', 1, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (9, 'NET_WORK_CHARGE', 0.400000000000000022, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (10, 'NET_CHARGE_VAT', 15, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (11, 'IMPORT_NHIL', 2.5, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (12, 'SIL', 2, 'A');
+INSERT INTO "orderSystem_customsrate" (id, name, percent, status) VALUES (13, 'NET_CHARGE_NHIL', 2.5, 'A');
+
+
+--
+-- TOC entry 2070 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: orderSystem_customsrate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_customsrate_id_seq"', 13, true);
+
+
+--
+-- TOC entry 2048 (class 0 OID 43116)
+-- Dependencies: 189 2063
+-- Data for Name: orderSystem_deliverytime; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_deliverytime" (id, name, status) VALUES (1, '1 Week depending on stock availability', 'A');
+INSERT INTO "orderSystem_deliverytime" (id, name, status) VALUES (2, '3-4 Months', 'A');
+INSERT INTO "orderSystem_deliverytime" (id, name, status) VALUES (3, '4-5 Months', 'A');
+INSERT INTO "orderSystem_deliverytime" (id, name, status) VALUES (4, '5-6 Months', 'A');
+INSERT INTO "orderSystem_deliverytime" (id, name, status) VALUES (5, '7-8 Months', 'A');
+INSERT INTO "orderSystem_deliverytime" (id, name, status) VALUES (6, '8-9 Months', 'A');
+
+
+--
+-- TOC entry 2071 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: orderSystem_deliverytime_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_deliverytime_id_seq"', 6, true);
+
+
+--
+-- TOC entry 2058 (class 0 OID 43401)
+-- Dependencies: 201 2063
+-- Data for Name: orderSystem_depreciation; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_depreciation" (id, year, number, percent, status) VALUES (1, 'Factory New', 0, 0, 'A');
+INSERT INTO "orderSystem_depreciation" (id, year, number, percent, status) VALUES (3, '2rd Year', 2, 20, 'A');
+INSERT INTO "orderSystem_depreciation" (id, year, number, percent, status) VALUES (4, '4th Year', 4, 40, 'A');
+INSERT INTO "orderSystem_depreciation" (id, year, number, percent, status) VALUES (5, '5th Year', 5, 50, 'A');
+INSERT INTO "orderSystem_depreciation" (id, year, number, percent, status) VALUES (6, '3rd Year', 3, 30, 'A');
+INSERT INTO "orderSystem_depreciation" (id, year, number, percent, status) VALUES (2, '1st Year', 1, 10, 'A');
+
+
+--
+-- TOC entry 2072 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: orderSystem_depreciation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_depreciation_id_seq"', 6, true);
+
+
+--
+-- TOC entry 2056 (class 0 OID 43305)
+-- Dependencies: 197 2063
+-- Data for Name: orderSystem_discount; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (3, 'TGM', '35', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (2, 'CLA BBS TU', '25', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (1, 'None', '0.0', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (4, 'CLA BB CH', '24', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (5, 'TGS-WW 6X4 BB CH', '34', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (6, 'TGL', '35', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (7, 'TGS-WW 6X4 BBS TU', '37.5', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (8, 'TGS 6X6 BB CH', '36', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (9, 'TGS-WW 8X4 BB CH', '36', 'A');
+INSERT INTO "orderSystem_discount" (id, name, percent, status) VALUES (10, 'TGS-WW 4X2 BBS TU', '37.5', 'A');
+
+
+--
+-- TOC entry 2073 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: orderSystem_discount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_discount_id_seq"', 10, true);
+
+
+--
+-- TOC entry 2046 (class 0 OID 43108)
+-- Dependencies: 187 2063
+-- Data for Name: orderSystem_dutytype; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_dutytype" (id, name, status, percent, vat_percentage) VALUES (2, 'EX  MBG Yard included duties and delivery costs', 'A', 100, 17.5);
+INSERT INTO "orderSystem_dutytype" (id, name, status, percent, vat_percentage) VALUES (1, 'Ex MBG Yard bonded warehouse', 'A', 3, 0);
+
+
+--
+-- TOC entry 2074 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: orderSystem_dutytype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_dutytype_id_seq"', 2, true);
+
+
+--
+-- TOC entry 2044 (class 0 OID 43100)
+-- Dependencies: 185 2063
+-- Data for Name: orderSystem_paymentterm; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_paymentterm" (id, description, status, rate, extra_bank_rate, duration) VALUES (3, '120 Days', 'A', 0, 12, 120);
+INSERT INTO "orderSystem_paymentterm" (id, description, status, rate, extra_bank_rate, duration) VALUES (2, '90 Days', 'A', 3.5, 12, 90);
+INSERT INTO "orderSystem_paymentterm" (id, description, status, rate, extra_bank_rate, duration) VALUES (1, '0 Days', 'A', 0, 12, 0);
+
+
+--
+-- TOC entry 2075 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: orderSystem_paymentterm_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_paymentterm_id_seq"', 3, true);
+
+
+--
+-- TOC entry 2050 (class 0 OID 43132)
+-- Dependencies: 191 2063
+-- Data for Name: orderSystem_specialdiscount; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_specialdiscount" (id, percent, status) VALUES (2, '1', 'A');
+INSERT INTO "orderSystem_specialdiscount" (id, percent, status) VALUES (1, '0', 'A');
+
+
+--
+-- TOC entry 2076 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: orderSystem_specialdiscount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_specialdiscount_id_seq"', 2, true);
+
+
+--
+-- TOC entry 2054 (class 0 OID 43148)
+-- Dependencies: 195 2063
+-- Data for Name: orderSystem_truckage; Type: TABLE DATA; Schema: public; Owner: atomadmin
+--
+
+INSERT INTO "orderSystem_truckage" (id, year, status) VALUES (1, '2009', 'A');
+INSERT INTO "orderSystem_truckage" (id, year, status) VALUES (2, '2010', 'A');
+INSERT INTO "orderSystem_truckage" (id, year, status) VALUES (3, '2011', 'A');
+INSERT INTO "orderSystem_truckage" (id, year, status) VALUES (4, '2012', 'A');
+INSERT INTO "orderSystem_truckage" (id, year, status) VALUES (5, '2013', 'A');
+INSERT INTO "orderSystem_truckage" (id, year, status) VALUES (6, '2014', 'A');
+
+
+--
+-- TOC entry 2077 (class 0 OID 0)
+-- Dependencies: 194
+-- Name: orderSystem_truckage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: atomadmin
+--
+
+SELECT pg_catalog.setval('"orderSystem_truckage_id_seq"', 6, true);
+
+
+-- Completed on 2014-11-27 11:25:29 GMT
+
+--
+-- PostgreSQL database dump complete
+--
+

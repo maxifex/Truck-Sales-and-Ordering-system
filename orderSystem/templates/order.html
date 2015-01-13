@@ -1,0 +1,792 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_css %}
+<link href="{% static 'css/jquery.datatables.css' %}" rel="stylesheet">
+{#<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">#}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link href="{% static 'css/datepicker.css' %}" rel="stylesheet">
+
+<style type="text/css">
+    .nowrap { white-space: nowrap; }
+</style>
+{% endblock %}
+
+{% block pageName %}
+   <i class="fa fa-credit-card"></i> Order Requests
+{% endblock %}
+
+{% block pageSubs %}
+    Action page for Order Requests and Transactions
+{% endblock %}
+
+{% block pageNav %}
+    Order Requests
+{% endblock %}
+
+{% block pageContent %}
+
+        <div class="panel-body">
+          <h5 class="subtitle mb5">Help info!</h5>
+        <span>
+{#            <button class="btn btn-primary btn-lg pull-right" id="btnAdd" type="button"><i class="glyphicon glyphicon-plus"></i> Add New Client</button>#}
+          <p class="m20">This view contains full details of order requests made by MBG salesreps. Use this page to View order requests, proforma and other documents</p>
+        </span>
+        <br/>
+        <form id="" data-validate="parsley" class="form-horizontal row-border" action="{% url 'man:orderView' %}" method="get">
+    {% csrf_token %}
+
+            <div class="col-md-12">
+
+              <div class="col-md-10">
+
+                  <!--form-group start-->
+                  <div class="form-group">
+{#                    <div class="col-md-4">#}
+{#                      <div class="input-group input-large input-daterange" data-date="13/07/2013" data-date-format="dd/mm/yyyy">#}
+{#                        <span class="input-group-addon">Date Sent</span>#}
+{#                        <input type="text" class="form-control dpd1" data-date-format="dd-mm-yyyy" name="postedFrom" value="{{ postedFrom }}">#}
+{#                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>#}
+{##}
+{#                        <span class="input-group-addon">To</span>#}
+{#                        <input type="text" class="form-control dpd2" data-date-format="dd-mm-yyyy" name="postedTo" value="{{ postedTo }}">#}
+{#                      </div>#}
+{#                    </div>#}
+{##}
+{#                    <div class="col-md-4">#}
+{#                        <div class="form-group">#}
+{#                            <div class='input-group date' id='datetimepicker2' data-date="13/07/2013" data-date-format="dd/mm/yyyy">#}
+{#                                <input type='text' class="form-control dpd1" data-date-format="dd-mm-yyyy" name="postedFrom" value="{{ postedFrom }}" />#}
+{#                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>#}
+{#                                </span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+
+                  <div class="col-md-4">
+                      <div class="input-group input-large input-daterange" data-date="13/07/2013" data-date-format="dd/mm/yyyy">
+                        <span class="input-group-addon">Date</span>
+                        <input type="text" class="form-control dpd1" data-date-format="dd-mm-yyyy" name="postedFrom" value="{{ postedFrom }}">
+                        <span class="input-group-addon">To</span>
+                        <input type="text" class="form-control dpd2" data-date-format="dd-mm-yyyy" name="postedTo" value="{{ postedTo }}">
+                      </div>
+                    </div>
+
+
+             <p>The datepicker is tied to a standard form input field. Click on the input to open an interactive calendar in a small overlay. Click elsewhere on the page or hit the Esc key to close. If a date is chosen, feedback is shown as the input's value.</p>
+              <br />
+              <label>Default Functionality</label>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+
+                   <div class="col-md-2">
+                      <select name="employeeFilter" class="form-control" id="source">
+                          <option value="0" >All Sales Reps</option>
+                          {% for emp in employee.all %}
+
+                          <option value="{{emp.user.id}}" {% ifequal userFilter|add:0 emp.user.id %} selected="selected"{% endifequal %}>{{ emp.user.first_name}} {{ emp.user.last_name}}</option>
+
+                          {% endfor %}
+                      </select>
+                   </div>
+
+                   <div class="col-md-2">
+                      <select name="employeeFilter" class="form-control" id="source">
+                          <option value="0" >--Select Status</option>
+                          <option value="P" {% ifequal statusFilter 'P' %} selected="selected"{% endifequal %}>Pending</option>
+                          <option value="C" {% ifequal statusFilter 'C' %} selected="selected"{% endifequal %}>Completed</option>
+                      </select>
+                   </div>
+
+
+                   <div class="col-md-3">
+                      <div class="form-group lable-padd">
+{#                        <label class="col-sm-3">Search Client</label>#}
+{#                        <div class="col-sm-6">#}
+                          <input id="clientNumber" formaction="{% url 'man:clientView' %}" name="clientNumber" value="" type="text" class="form-control parsley-validated" placeholder="Type to search client" data-rangelength="[5,24]">
+                          <input type="hidden" id="clientid" name="clientFilter" value="" type="text" class="form-control parsley-validated">
+{#                        </div>#}
+                      </div>
+                   </div>
+
+
+                  </div>
+                  <!--form-group start-->
+            </div>
+                <button class="btn btn-info pull-left" type="submit"><i class="fa fa-refresh"></i> Update</button>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        </div>
+
+
+        </form>
+
+          <div class="table-responsive">
+            <table class="table" id="dynamic-table">
+              <thead>
+                 <tr>
+                    <th>Order Number</th>
+                    <th>Company/Client</th>
+                    <th>Man Truck Model</th>
+{#                    <th>Order Truck Subscr.</th>#}
+{#                    <th>GFZ Number</th>#}
+{#                    <th>Duty Type</th>#}
+{#                    <th>Payment Term</th>#}
+{#                    <th>EDT</th>#}
+                    <th>Quantity</th>
+                    <th>Discount</th>
+                    <th>Spec Discount</th>
+                    <th>Country</th>
+                    <th>Manex Price</th>
+                    <th>Selling Price</th>
+{#                    <th>Additional Equip.</th>#}
+{#                    <th>External Equip.</th>#}
+{#                    <th>Other Equip.</th>#}
+{#                    <th>Truck Age</th>#}
+                    <th>Order Date</th>
+                    <th class="nowrap">Delete/Edit&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                 </tr>
+              </thead>
+
+              <tbody>
+              {% for detail in orders.all %}
+                 <tr class="gradeX" id="tablerecord{{ detail.id }}" data-id="{{ detail.id }}">
+
+                    <input type="hidden" id="countryid" value="{% if detail.country.id == None %}{% else %}{{ detail.country.id }}{% endif %}">
+                    <input type="hidden" id="ordertrucksubscr" value="{% if detail.order_truck_subscr == None %}{% else %}{{ detail.order_truck_subscr }}{% endif %}">
+                    <input type="hidden" id="gfznumber" value="{% if detail.gfz_number == None %}{% else %}{{ detail.gfz_number }}{% endif %}">
+                    <input type="hidden" id="dutytype" value="{% if detail.duty_type.id == None %}{% else %}{{ detail.duty_type.id }}{% endif %}">
+                    <input type="hidden" id="paymentterm" value="{% if detail.payment_term.id == None %}{% else %}{{ detail.payment_term.id }}{% endif %}">
+                    <input type="hidden" id="estimateddeliverytime" value="{% if detail.estimated_delivery_time.id == None %}{% else %}{{ detail.estimated_delivery_time.id }}{% endif %}">
+                    <input type="hidden" id="additionalequipment" value="{% if detail.additional_equipment == None %}{% else %}{{ detail.additional_equipment }}{% endif %}">
+                    <input type="hidden" id="external_equipment" value="{% if detail.external_equipment == None %}{% else %}{{ detail.external_equipment }}{% endif %}">
+                    <input type="hidden" id="othertobeequipment" value="{% if detail.other_to_be_equipment == None %}{% else %}{{ detail.other_to_be_equipment }}{% endif %}">
+                    <input type="hidden" id="truckage" value="{% if detail.truck_age.id == None %}{% else %}{{ detail.truck_age.id }}{% endif %}">
+                    <input type="hidden" id="discounth" value="{% if detail.discount.id == None %}{% else %}{{ detail.discount.id }}{% endif %}">
+                    <input type="hidden" id="specialdiscounth" value="{% if detail.special_discount.id == None %}{% else %}{{ detail.special_discount.id }}{% endif %}">
+
+                    <td id="ordernumber">{{ detail.order_number }}</td>
+                    <td id="client">{{ detail.client.company_name }}</td>
+                    <td id="mantruckmodel">{{ detail.man_truck_model }}</td>
+{#                    <td id="ordertrucksubscr">{{ detail.order_truck_subscr }}</td>#}
+{#                    <td id="gfznumber">{{ detail.gfz_number }}</td>#}
+{#                    <td id="dutytype">{{ detail.duty_type.name }}</td>#}
+{#                    <td id="paymentterm">{{ detail.payment_term.name }}</td>#}
+{#                    <td id="estimateddeliverytime">{{ detail.estimated_delivery_time.name }}</td>#}
+                    <td id="quantity">{{ detail.quantity }}</td>
+                    <td id="discount">{{ detail.discount.percent }}</td>
+                    <td id="specialdiscount">{{ detail.special_discount.percent }}</td>
+                    <td id="country">{{ detail.country.name }}</td>
+                    <td id="manexbasicvehicleprice">{{ detail.manex_basic_vehicle_price }}</td>
+                    <td id="sellingprice">{{ detail.selling_price }}</td>
+{#                    <td id="additionalequipment">{{ detail.additional_equipment }}</td>#}
+{#                    <td id="externalequipment">{{ detail.external_equipment }}</td>#}
+{#                    <td id="othertobeequipment">{{ detail.other_to_be_equipment }}</td>#}
+{#                    <td id="truckage">{{ detail.truck_age.age }}</td>#}
+                    <td id="orderdate">{{ detail.order_date }}</td>
+                    <td>
+{#                        <div class="btn-group">#}
+{#                            <span><button id="{{ detail.id }}" class="btn btn-default btnDelete" type="button"><i class="glyphicon glyphicon-remove"></i></button></span>#}
+{#                            <span><button id="{{ detail.id }}" class="btn btn-default btnEdit" type="button"><i class="glyphicon glyphicon-edit"></i></button></span>#}
+{#                        </div>#}
+                  <div class="btn-group mr5">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a target="_blank" href="{% url 'man:proformaView' %}?order_id={{  detail.id }}">Proforma</a></li>
+                      <li><a target="_blank" href="{% url 'man:mofView' %}?order_id={{  detail.id }}">MOF</a></li>
+                      <li><a target="_blank" href="{% url 'man:qsfView' %}?order_id={{  detail.id }}">QSF</a></li>
+                      <li><a target="_blank" href="{% url 'man:calculationView' %}?order_id={{  detail.id }}">Calculations</a></li>
+                      <li class="divider"></li>
+                      <li><a href="#" id="{{ detail.id }}" class="btnEdit">Edit</a></li>
+                      <li><a href="#" id="{{ detail.id }}" class="btnDelete">Delete</a></li>
+                      <li><a href="{% url 'man:orderFormView' %}?order_id={{  detail.id }}">Replicate</a></li>
+                    </ul>
+                  </div><!-- btn-group -->
+
+                    </td>
+                 </tr>
+              {% endfor %}
+
+              </tbody>
+           </table>
+          </div><!-- table-responsive -->
+
+        </div><!-- panel-body -->
+
+
+
+
+        {#  <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Confirm delete</a>#}
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                  <p>You are deleting a record and this will mean you will never see this record again.</p>
+                  <P>Are you sure you want to delete?</P>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="yesDelete" action="{% url 'man:orderSave' %}" type="button" class="btn btn-danger">Delete</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Orders & Requests</h4>
+                </div>
+                <span id="modal_error_div" style="display:none" class="alert alert-danger"></span>
+
+                <form id="edit-modal-form" role="form" class="form-horizontal validate-upload-form" action="{% url 'man:orderSave' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                      <input type="hidden" id="item_id" name="item_id">
+
+              <!-- BASIC WIZARD -->
+              <div id="progressWizard" class="basic-wizard">
+
+                <ul class="nav nav-pills nav-justified">
+                  <li><a href="#ptab1" data-toggle="tab"><span>Step 1:</span>Product Info</a></li>
+                  <li><a href="#ptab2" data-toggle="tab"><span>Step 2:</span>Payment Info</a></li>
+                  <li><a href="#ptab3" data-toggle="tab"><span>Step 3:</span>Additional Info</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+
+                  <div class="tab-pane" id="ptab1">
+
+                          <div class="form-group lable-padd">
+                            <label class="col-sm-3">Company Name</label>
+                            <div class="col-sm-6">
+                              <input id="accountNumber" disabled="disabled" formaction="{% url 'man:clientView' %}" name="accountNumber" value="" type="text" class="form-control parsley-validated" required placeholder="Type to search and select client" data-rangelength="[5,24]">
+                            </div>
+                          </div>
+
+                          <div class="form-group lable-padd">
+                            <label class="col-sm-3">Man Truck Model</label>
+                            <div class="col-sm-6">
+                              <input id="smantruckmodel" name="mantruckmodel" value="" type="text" class="form-control parsley-validated" required placeholder="Enter Truck Model" data-rangelength="[5,50]">
+                            </div>
+                          </div>
+
+                          <div class="form-group lable-padd">
+                            <label class="col-sm-3" id="drawerNamelb">Order Truck Subscr</label>
+                            <div class="col-sm-6">
+                              <input name="order_truck_subscr" id="sordertrucksubscr" type="text" class="form-control parsley-validated" required placeholder="Enter Order Truck Subscriber Number">
+                            </div>
+                          </div>
+
+                          <div class="form-group lable-padd">
+                            <label class="col-sm-3" id="drawerNamelb">GFZ Number</label>
+                            <div class="col-sm-6">
+                              <input name="gfz_number" id="sgfznumber" type="text" class="form-control parsley-validated" required placeholder="Enter GFZ Number">
+                            </div>
+                          </div>
+
+                        <div class="form-group lable-padd">
+                          <label class="col-sm-3">Truck Age</label>
+                          <div class="col-sm-6">
+                              <select id="struckage" name="truckage" class="form-control parsley-validated" required>
+                                   <option value="">-Select truck year-</option>
+                                 {% for item in truckage %}
+                                   <option value="{{ item.id }}">{{ item.year }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group lable-padd">
+                          <label class="col-sm-3">Duty Type</label>
+                          <div class="col-sm-6">
+                              <select id="sdutytype" name="duty_type" class="form-control parsley-validated" required>
+                                   <option value="">-Select Duty Type-</option>
+                                 {% for item in dutytype %}
+                                   <option value="{{ item.id }}">{{ item.name }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                          <div class="form-group lable-padd">
+                            <label class="col-sm-3" id="">Quantity</label>
+                            <div class="col-sm-6">
+                              <input name="quantity" id="squantity" type="text" class="form-control parsley-validated" required placeholder="Enter Quatity of items ordered">
+                            </div>
+                          </div>
+
+                  </div>
+                  <div class="tab-pane" id="ptab2">
+
+
+
+                        <div class="form-group lable-padd">
+                          <label class="col-sm-3">Currency</label>
+                          <div class="col-sm-6">
+                              <select id="scurrency" name="currency" class="form-control parsley-validated" required>
+                                   <option value="">-Select Currency-</option>
+                                 {% for item in currency %}
+                                   <option value="{{ item.id }}" {% if item.is_default == 'Y' %} selected="selected" {% endif %}>{{ item.code }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Manex Basic Veh. Price</label>
+                        <div class="col-sm-6">
+                          <input name="manexprice" id="smanexbasicvehicleprice" type="text" class="form-control parsley-validated" required placeholder="Enter Manex Price">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Additional Equipment</label>
+                        <div class="col-sm-6">
+                          <input name="additionalequipment" id="sadditionalequipment" type="text" class="form-control parsley-validated" required placeholder="Enter any additional equipments">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">External Equipments</label>
+                        <div class="col-sm-6">
+                          <input name="externalequipment" id="sexternalequipment" type="text" class="form-control parsley-validated" required placeholder="Enter external equipments">
+                        </div>
+                      </div>
+
+                    <div class="form-group lable-padd">
+                        <label class="col-sm-3">Other to be specified</label>
+                        <div class="col-sm-6">
+                          <input name="othertobespecified" id="sothertobeequipment" type="text" class="form-control parsley-validated" required placeholder="Enter other costs on MOF">
+                        </div>
+                     </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Selling Price</label>
+                        <div class="col-sm-6">
+                          <input name="sellingprice" id="ssellingprice" type="text" class="form-control parsley-validated" required placeholder="Enter your selling price">
+                        </div>
+                      </div>
+
+
+
+                  </div>
+                  <div class="tab-pane" id="ptab3">
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Order Number</label>
+                        <div class="col-sm-6">
+                          <input id="sordernumber" disabled="disabled" name="ordernumber" value="" type="text" class="form-control parsley-validated" required placeholder="Auto Generated" data-rangelength="[5,50]">
+                        </div>
+                      </div>
+
+                       <div class="form-group lable-padd">
+                          <label class="col-sm-3">Payment Term</label>
+                          <div class="col-sm-6">
+                              <select id="spaymentterm" name="payment_term" class="form-control parsley-validated" required>
+                                   <option value="">-Select Payment Term-</option>
+                                 {% for term in paymentterm %}
+                                   <option value="{{ term.id }}">{{ term.duration }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group lable-padd">
+                          <label class="col-sm-3">Discount</label>
+                          <div class="col-sm-6">
+                              <select id="sdiscount" name="discount" class="form-control parsley-validated" required>
+                                   <option value="">-Select Discount-</option>
+                                 {% for item in discount %}
+                                   <option value="{{ item.id }}">{{ item.percent }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group lable-padd">
+                          <label class="col-sm-3">Special Discount</label>
+                          <div class="col-sm-6">
+                              <select id="sspecialdiscount" name="specialdiscount" class="form-control parsley-validated" required>
+                                   <option value="">-Select Special Discount-</option>
+                                 {% for item in specialdiscount %}
+                                   <option value="{{ item.id }}">{{ item.percent }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group lable-padd">
+                          <label class="col-sm-3">Estimanted Delivery Time</label>
+                          <div class="col-sm-6">
+                              <select id="sestimateddeliverytime" name="estimated_delivery_time" class="form-control parsley-validated" required>
+                                   <option value="">-Select Delivery time-</option>
+                                 {% for delivery in deliverytime %}
+                                   <option value="{{ delivery.id }}">{{ delivery.name }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group lable-padd">
+                          <label class="col-sm-3">Destination Country</label>
+                          <div class="col-sm-6">
+                              <select id="scountry" name="country" class="form-control parsley-validated" required>
+                                   <option value="">-Select Destination Country-</option>
+                                 {% for item in country %}
+                                   <option value="{{ item.id }}">{{ item.name }}</option>
+                                 {% endfor %}
+                             </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group lable-padd">
+                          <div class="col-sm-5">
+                          </div>
+                          <a  id="customlink" class="col-sm-5 pull-right" href="#">Add Custom Calculation Values</a>
+                        </div>
+
+                        <div id="custompanel" style="display: none">
+                            <div class="form-group lable-padd">
+                              <label class="col-sm-3">FOB Charges</label>
+                              <div class="col-sm-6">
+                                  <input id="fobcharges" name="fobcharges" value="" type="text" class="form-control parsley-validated" placeholder="Custom FOB Charges" data-rangelength="[5,50]">
+                              </div>
+                            </div>
+
+                            <div class="form-group lable-padd">
+                              <label class="col-sm-3">Sea Freight to Tema</label>
+                              <div class="col-sm-6">
+                                  <input id="freight" name="freight" value="" type="text" class="form-control parsley-validated" placeholder="Custom Sea Freight to Tema" data-rangelength="[5,50]">
+                              </div>
+                            </div>
+                        </div>
+
+                  </div>
+
+
+                </div><!-- tab-content -->
+
+                <ul class="pager wizard">
+                    <li class="previous"><a href="javascript:void(0)">Previous</a></li>
+                    <li class="next"><a href="javascript:void(0)">Next</a></li>
+           			<li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
+                </ul>
+
+              </div><!-- #basicWizard -->
+
+                </div>
+{#                <div class="modal-footer">#}
+{#                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+{#                  <button id="yesEdit" action="{% url 'man:clientSave' %}" class="btn btn-primary">Save</button>#}
+{#                </div>#}
+                </form>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block extra_js %}
+{#    <script src="{% static 'js/bootstrap-datepicker.js'%}"></script>#}
+    <script src="{% static 'js/jquery.datatables.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap-wizard.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.js'%}"></script>
+
+    <script>
+
+      $('a.btnDelete').on('click', function (e) {
+          e.preventDefault();
+          var id = $(this).attr('id');
+          var user_id = $(this).attr('user_id');
+          $('#myModal').attr('mode-id', id);
+          $('#myModal').attr('user-id', user_id);
+          $('#myModal').modal('show');
+      });
+
+      $('#yesDelete').click(function () {
+          // handle deletion here
+          var url = $(this).attr('action') // the file to call
+          var id = $('#myModal').attr('mode-id');
+          var user_id = $('#myModal').attr('user-id');
+
+          $.post(url, { item_id:id, user_id:user_id, status: "D", csrfmiddlewaretoken: '{{ csrf_token }}' }, function( response ) {
+                if(response.is_valid == true){
+                    $('#success_div').html(response.data);
+                    $('#success_div').fadeIn(700);
+                    $('#success_div').fadeOut(10000);
+                    var target_row = $('#tablerecord' + id).get(0);
+                    target_row.remove();
+
+                    $('#myModal').modal('hide');
+
+                }else{
+                    $('#error_div').html(response.data);
+                    $('#error_div').fadeIn(700);
+                    $('#error_div').fadeOut(10000);
+                }
+
+          }, "json");
+
+      });
+
+      $('a.btnEdit').on('click', function (e) {
+          e.preventDefault();
+          var id = $(this).attr('id');
+
+          $('#item_id').val(id);
+          $("#sordernumber").val($(this).closest('tr').find('td#ordernumber').text());
+          $("#accountNumber").val($(this).closest('tr').find('td#client').text());
+          $('#smantruckmodel').val($(this).closest('tr').find('td#mantruckmodel').text());
+          $('#squantity').val($(this).closest('tr').find('td#quantity').text());
+          $('#smanexbasicvehicleprice').val($(this).closest('tr').find('td#manexbasicvehicleprice').text());
+          $('#ssellingprice').val($(this).closest('tr').find('td#sellingprice').text());
+
+          $('#sdutytype').val($(this).closest('tr').find('#dutytype').val());
+          $('#sgfznumber').val($(this).closest('tr').find('#gfznumber').val());
+          $('#sordertrucksubscr').val($(this).closest('tr').find('#ordertrucksubscr').val());
+          $('#struckage').val($(this).closest('tr').find('#truckage').val());
+          $('#scountry').val($(this).closest('tr').find('#countryid').val());
+          $('#sdiscount').val($(this).closest('tr').find('#discounth').val());
+          $('#sspecialdiscount').val($(this).closest('tr').find('#specialdiscounth').val());
+          $('#spaymentterm').val($(this).closest('tr').find('#paymentterm').val());
+          $('#sestimateddeliverytime').val($(this).closest('tr').find('#estimateddeliverytime').val());
+          $('#sadditionalequipment').val($(this).closest('tr').find('#additionalequipment').val());
+          $('#sexternalequipment').val($(this).closest('tr').find('#external_equipment').val());
+          $('#sothertobeequipment').val($(this).closest('tr').find('#othertobeequipment').val());
+
+          $('#editModal').attr('mode-id', id);
+          $('#editModal').modal('show');
+      });
+
+
+
+      jQuery(document).ready(function() {
+
+        $('.input-daterange').datepicker({
+            format: 'mm/dd/yyyy',
+            startDate: '-3d'
+        });
+
+        $( "#customlink" ).click(function() {
+          $( "#custompanel" ).slideToggle( "slow", function() {
+            // Animation complete.
+          });
+        });
+
+{#        $('#datetimepicker2').datepicker({#}
+{#            format: 'mm/dd/yyyy',#}
+{#            startDate: '-3d'#}
+{#        })#}
+
+{#        $(function(){#}
+{#           $('#datetimepicker2').datepicker({#}
+{#              format: 'mm-dd-yyyy'#}
+{#            });#}
+{#        });#}
+{#          alert('done');#}
+        jQuery('#dynamic-table').dataTable();
+
+        jQuery('#dynamic-table2').dataTable({
+          "sPaginationType": "full_numbers"
+        });
+
+
+        // Delete row in a table
+        jQuery('.delete-row').click(function(){
+          var c = confirm("Continue delete?");
+          if(c)
+            jQuery(this).closest('tr').fadeOut(function(){
+              jQuery(this).remove();
+            });
+
+            return false;
+        });
+
+        // Show aciton upon row hover
+        jQuery('.table-hidaction tbody tr').hover(function(){
+          jQuery(this).find('.table-action-hide a').animate({opacity: 1});
+        },function(){
+          jQuery(this).find('.table-action-hide a').animate({opacity: 0});
+        });
+
+
+        var cache = {},
+            lastXhr;
+        $( "#clientNumber" ).autocomplete({
+            autoFocus: true,
+            minLength: 3,
+            delay: 100,
+            messages: {
+            noResults: '',
+            results: function() {}
+            },
+            source: function( request, response ) {
+                    var term = request.term;
+                    if ( term in cache ) {
+                        response( cache[ term ] );
+                        return;
+                    }
+
+                    lastXhr = $.getJSON( "/clientList", request, function( data, status, xhr ) {
+                        cache[ term ] = data;
+                        if ( xhr === lastXhr ) {
+                            response( data );
+                        }
+                    });
+            },
+            change: function( event, ui ) {
+
+                if (ui.item){
+
+                    $('#clientNumber').val(ui.item.label);
+                    $('#clientid').val(ui.item.id);
+                }else{
+
+                    //Clear and Disable additional forms
+                }
+
+            }
+
+        });
+
+  });
+
+  // Progress Wizard
+  $('#progressWizard').bootstrapWizard({
+    'nextSelector': '.next',
+    'previousSelector': '.previous',
+    'lastSelector': '.last',
+
+    onNext: function(tab, navigation, index) {
+      var $total = navigation.find('li').length;
+      var $current = index+1;
+      var $percent = ($current/$total) * 100;
+      jQuery('#progressWizard').find('.progress-bar').css('width', $percent+'%');
+    },
+    onPrevious: function(tab, navigation, index) {
+      var $total = navigation.find('li').length;
+      var $current = index+1;
+      var $percent = ($current/$total) * 100;
+      jQuery('#progressWizard').find('.progress-bar').css('width', $percent+'%');
+    },
+    onTabShow: function(tab, navigation, index) {
+{#        alert('tab');#}
+      var $total = navigation.find('li').length;
+      var $current = index+1;
+      var $percent = ($current/$total) * 100;
+
+        if($current >= $total) {
+            $('#progressWizard').find('.pager .next').hide();
+            $('#progressWizard').find('.pager .finish').show();
+            $('#progressWizard').find('.pager .finish').removeClass('disabled');
+        } else {
+            $('#progressWizard').find('.pager .next').show();
+            $('#progressWizard').find('.pager .finish').hide();
+        }
+
+      jQuery('#progressWizard').find('.progress-bar').css('width', $percent+'%');
+    }
+  });
+
+	$('#progressWizard .finish').click(function() {
+
+        $('#error_alert_div').hide();
+        {#		alert('Finished!, Starting over!');#}
+		$('#progressWizard').find("a[href*='ptab1']").trigger('click');
+
+            var data = new FormData($('#edit-modal-form').get(0));
+            var id = $('#editModal').attr('mode-id');
+
+            $.ajax({ // create an AJAX call...
+                url: $('#edit-modal-form').attr('action'),
+                type: $('#edit-modal-form').attr('method'),
+                data: data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(response) { // on success..
+                    if(response.is_valid == true){
+{#                        $('#success_div').html(response.data);#}
+{#                        $('#success_div').fadeIn(700);#}
+{#                        $('#success_div').fadeOut(10000);#}
+                        $('#error_alert_div').html('<div class="alert alert-success alert-dismissible" role="alert">' +
+                            '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+                            '<strong>Success!</strong> <p id="error_alert_text">'+response.data+'</p></div>');
+                        $('#error_alert_div').fadeIn(400);
+
+                            $('#tablerecord'+id).find('td#contact').text($('#scontact').val());
+                            $('#tablerecord'+id).find('td#company').text($('#scompany').val());
+                            $('#tablerecord'+id).find('td#email').text($('#semail').val());
+                            $('#tablerecord'+id).find('td#business_phone').text($('#sbusinessnumber').val());
+                            $('#tablerecord'+id).find('td#mobile_phone').text($('#smobileNumber').val());
+                            $('#tablerecord'+id).find('td#city').text($('#scity').val());
+                            $('#tablerecord'+id).find('td#country').text($('#scountry :selected').text());
+
+                            $('#tablerecord'+id).find('#countryid').val($('#scountry').val());
+                            $('#tablerecord'+id).find('#altemail').val($('#saltemail').val());
+                            $('#tablerecord'+id).find('#address').val($('#saddress').val());
+                            $('#tablerecord'+id).find('#fax').val($('#sfax').val());
+
+{#                            $('#tablerecord'+id).find('td#ordernumber').text($('#sordernumber').val());#}
+{#                            $('#tablerecord'+id).find('td#client').text($('#accountNumber').val());#}
+                            $('#tablerecord'+id).find('td#mantruckmodel').text($('#smantruckmodel').val());
+                            $('#tablerecord'+id).find('td#quantity').text($('#squantity').val());
+                            $('#tablerecord'+id).find('td#manexbasicvehicleprice').text($('#smanexbasicvehicleprice').val());
+                            $('#tablerecord'+id).find('td#sellingprice').text($('#ssellingprice').val());
+                            $('#tablerecord'+id).find('td#quantity').text($('#squantity').val());
+
+                            $('#tablerecord'+id).find('#dutytype').val($('#sdutytype').val());
+                            $('#tablerecord'+id).find('#gfznumber').val($('#sgfznumber').val());
+                            $('#tablerecord'+id).find('#ordertrucksubscr').val($('#sordertrucksubscr').val());
+                            $('#tablerecord'+id).find('#countryid').val($('#scountry').val());
+                            $('#tablerecord'+id).find('#discounth').val($('#sdiscount').val());
+                            $('#tablerecord'+id).find('#specialdiscounth').val($('#sspecialdiscount').val());
+                            $('#tablerecord'+id).find('#paymentterm').val($('#spaymentterm').val());
+                            $('#tablerecord'+id).find('#estimateddeliverytime').val($('#sestimateddeliverytime').val());
+                            $('#tablerecord'+id).find('#additionalequipment').val($('#sadditionalequipment').val());
+                            $('#tablerecord'+id).find('#othertobeequipment').val($('#sothertobeequipment').val());
+                            $('#tablerecord'+id).find('#external_equipment').val($('#sexternalequipment').val());
+
+                            $('#editModal').modal('hide');
+
+                    }else{
+                        $('#modal_error_div').html(response.data);
+                        $('#modal_error_div').fadeIn(700);
+                        $('#modal_error_div').fadeOut(10000);
+                    }
+                },
+                error: function(e, x, r) { // on error..
+                    alert("error");
+                    $('#modal_error_div').html(e);
+                }
+            });
+
+	});
+
+
+    </script>
+
+{% endblock %}

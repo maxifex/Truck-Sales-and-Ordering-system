@@ -1,0 +1,546 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_css %}
+<link href="{% static 'css/jquery.datatables.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link href="{% static 'css/datepicker.css' %}" rel="stylesheet">
+
+<style type="text/css">
+    .nowrap { white-space: nowrap; }
+</style>
+{% endblock %}
+
+{% block pageName %}
+   <i class="fa fa-users"></i> Clients
+{% endblock %}
+
+{% block pageSubs %}
+    Action page for MGB Clients
+{% endblock %}
+
+{% block pageNav %}
+    Client
+{% endblock %}
+
+{% block pageContent %}
+
+        <div class="panel-body">
+          <h5 class="subtitle mb5">Help info!</h5>
+        <span>
+            <button class="btn btn-primary btn-lg pull-right" id="btnAdd" type="button"><i class="glyphicon glyphicon-plus"></i> Add New Client</button>
+          <p class="m20">This view contains full details about clients of MBG limited. Use this page to Add new client and Edit/Delete existing clients</p>
+        </span>
+        <br/>
+        <br/>
+        <br/>
+        <form id="" data-validate="parsley" class="form-horizontal row-border" action="{% url 'man:clientView' %}" method="get">
+        {% csrf_token %}
+
+            <div class="col-md-14">
+
+                  <div class="form-group">
+
+                  <div class="col-md-4">
+                      <div class="input-group">
+                            <span class="input-group-addon">From</span>
+                        <input type="text" name="postedFrom" value="{{ postedFrom }}" class="form-control" placeholder="mm/dd/yyyy" id="datepicker1">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <span class="input-group-addon">To</span>
+                        <input type="text" name="postedTo" value="{{ postedTo }}" class="form-control" placeholder="mm/dd/yyyy" id="datepicker2">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                      </div>
+                  </div>
+
+
+                   <div class="col-md-2">
+                      <select name="employeeFilter" class="form-control" id="source">
+                          <option value="0" >Registered  By</option>
+                          {% for emp in employee.all %}
+
+                          <option value="{{emp.user.id}}" {% ifequal employeeFilter|add:0 emp.user.id %} selected="selected"{% endifequal %}>{{ emp.user.first_name}} {{ emp.user.last_name}}</option>
+
+                          {% endfor %}
+                      </select>
+                   </div>
+
+                   <div class="col-md-2">
+                      <select name="countryFilter" class="form-control" id="source">
+                          <option value="0" >Country</option>
+                          {% for county in country.all %}
+
+                          <option value="{{county.id}}" {% ifequal countryFilter|add:0 county.id %} selected="selected"{% endifequal %}>{{ county.name}}</option>
+
+                          {% endfor %}
+                      </select>
+                   </div>
+
+
+                   <div class="col-md-2">
+                      <div class="input-group">
+                          <input id="clientNumber" formaction="{% url 'man:clientView' %}" name="clientNumber" value="{{ clientNumber }}" type="text" class="form-control parsley-validated" placeholder="Type to search client" data-rangelength="[5,24]">
+                          <input type="hidden" id="clientFilter" name="clientFilter" value="{{ clientFilter }}" type="text" class="form-control parsley-validated">
+                      </div>
+                   </div>
+
+                   <div class="col-md-2">
+                         <div class="input-group">
+{#                         <input id="clientNumber" formaction="{% url 'man:clientView' %}" name="clientNumber" value="" type="text" class="form-control parsley-validated" placeholder="Type to search client" data-rangelength="[5,24]">#}
+                        <button class="btn btn-info" type="submit"><i class="fa fa-refresh"></i> Update</button>
+                          </div>
+                   </div>
+
+                  </div>
+                  <!--form-group start-->
+{#            </div>#}
+{#                <button class="btn btn-info pull-left" type="submit"><i class="fa fa-refresh"></i> Update</button>#}
+        <br/>
+        </div>
+
+        </form>
+
+          <div class="table-responsive">
+            <table class="table" id="dynamic-table">
+              <thead>
+                 <tr>
+                    <th>Client ID</th>
+                    <th>Company</th>
+                    <th>Contact</th>
+{#                    <th>Address</th>#}
+                    <th>Email</th>
+{#                    <th>Alt. Email</th>#}
+                    <th>Business Phone</th>
+                    <th>Mobile Phone</th>
+{#                    <th>Fax</th>#}
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Created</th>
+                    <th class="nowrap">Delete/Edit&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                 </tr>
+              </thead>
+              <tbody>
+              {% for detail in client.all %}
+                 <tr class="gradeX" id="tablerecord{{ detail.id }}" data-id="{{ detail.id }}">
+
+                    <input type="hidden" id="altemail" value="{% if detail.alt_email == None %}{% else %}{{ detail.alt_email }}{% endif %}">
+                    <input type="hidden" id="fax" value="{% if detail.fax == None %}{% else %}{{ detail.fax }}{% endif %}">
+                    <input type="hidden" id="address" value="{% if detail.address == None %}{% else %}{{ detail.address }}{% endif %}">
+                    <input type="hidden" id="countryid" value="{% if detail.country.id == None %}{% else %}{{ detail.country.id }}{% endif %}">
+
+                    <td id="clientid">{{ detail.client_id }}</td>
+                    <td id="company">{{ detail.company_name }}</td>
+                    <td id="contact">{{ detail.contact_person }}</td>
+                    <td id="email">{{ detail.email }}</td>
+                    <td id="business_phone">{{ detail.business_phone }}</td>
+                    <td id="mobile_phone">{{ detail.mobile_phone }}</td>
+                    <td id="country">{{ detail.country.name }}</td>
+                    <td id="city">{{ detail.city }}</td>
+                    <td id="date_joined">{{ detail.created_date }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <span><button id="{{ detail.id }}" class="btn btn-default btnDelete" type="button"><i class="glyphicon glyphicon-remove"></i></button></span>
+                            <span><button id="{{ detail.id }}" class="btn btn-default btnEdit" type="button"><i class="glyphicon glyphicon-edit"></i></button></span>
+                        </div>
+                    </td>
+                 </tr>
+              {% endfor %}
+
+              </tbody>
+           </table>
+          </div><!-- table-responsive -->
+
+        </div><!-- panel-body -->
+
+
+
+
+        {#  <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Confirm delete</a>#}
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                  <p>You are deleting a record and this will mean you will never see this record again.</p>
+                  <P>Are you sure you want to delete?</P>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="yesDelete" action="{% url 'man:clientSave' %}" type="button" class="btn btn-danger">Delete</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Client Panel</h4>
+                </div>
+                <span id="modal_error_div" style="display:none" class="alert alert-danger"></span>
+
+                <form id="edit-modal-form" role="form" class="form-horizontal validate-upload-form" action="{% url 'man:clientSave' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+
+                      <input type="hidden" id="item_id" name="item_id">
+                      <input type="hidden" id="ssclientid" name="client_id">
+
+                      <!--form-group end-->
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Client ID</label>
+                        <div class="col-sm-6">
+                          <input id="sclientid" disabled="true" type="text" class="form-control parsley-validated" required placeholder="Autogenerated">
+                        </div>
+                      </div>
+
+                      <!--form-group end-->
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Company Name</label>
+                        <div class="col-sm-6">
+                          <input id="scompany" name="company" type="text" class="form-control parsley-validated" required placeholder="Company Name required">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Contact Person</label>
+                        <div class="col-sm-6">
+                          <input id="scontact" name="contact" type="text" class="form-control parsley-validated" required placeholder="Contact Person's full name">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                          <label class="col-sm-3">Email</label>
+                          <div class="col-sm-6">
+                            <input id="semail" name="client_email" type="text" class="form-control parsley-validated" placeholder="Email address" data-type="email">
+                          </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                          <label class="col-sm-3">Alt Email</label>
+                          <div class="col-sm-6">
+                            <input id="saltemail" name="alt_email" type="text" class="form-control parsley-validated" placeholder="Alternative Email address (Optional)" data-type="email">
+                          </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Business Number</label>
+                        <div class="col-sm-6">
+                          <input id="sbusinessnumber" name="business_phone" type="text" class="form-control parsley-validated" required placeholder="Business phone number" data-type="phone">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Mobile Number</label>
+                        <div class="col-sm-6">
+                          <input id="smobileNumber" name="mobile_phone" type="text" class="form-control parsley-validated" placeholder="Mobile number" data-type="phone">
+                        </div>
+                      </div>
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Fax</label>
+                        <div class="col-sm-6">
+                          <input id="sfax" name="fax" type="text" class="form-control parsley-validated" placeholder="Client Fax Number" data-type="phone">
+                        </div>
+                      </div>
+
+
+                      <div class="form-group lable-padd">
+                        <label class="col-sm-3">Address</label>
+                        <div class="col-sm-6">
+                            <textarea id="saddress" name="address" class="form-control parsley-validated" placeholder="Enter Full Address of Client" required></textarea>
+                        </div>
+                      </div>
+
+                      <!--form-group start-->
+                    <div class="form-group lable-padd">
+                      <label class="col-sm-3">Country</label>
+                      <div class="col-sm-6">
+                          <select id="scountry" name="country" class="form-control parsley-validated" required>
+                               <option value="">-Select Country-</option>
+                             {% for county in country %}
+                               <option value="{{ county.id }}">{{ county.name }}</option>
+                             {% endfor %}
+                         </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group lable-padd">
+                        <label class="col-sm-3">City</label>
+                        <div class="col-sm-6">
+                          <input id="scity" name="city" type="text" class="form-control parsley-validated" placeholder="Type the city of Client" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button id="yesEdit" action="{% url 'man:clientSave' %}" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+{% endblock %}
+
+
+
+
+{% block extra_js %}
+    <script src="{% static 'js/jquery.datatables.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap-wizard.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.js'%}"></script>
+
+    <script>
+
+      $('button.btnDelete').on('click', function (e) {
+          e.preventDefault();
+          var id = $(this).attr('id');
+          var user_id = $(this).attr('user_id');
+          $('#myModal').attr('mode-id', id);
+          $('#myModal').attr('user-id', user_id);
+          $('#myModal').modal('show');
+      });
+
+      $('#yesDelete').click(function () {
+          // handle deletion here
+          var url = $(this).attr('action') // the file to call
+          var id = $('#myModal').attr('mode-id');
+          var user_id = $('#myModal').attr('user-id');
+
+          $.post(url, { item_id:id, user_id:user_id, status: "D", csrfmiddlewaretoken: '{{ csrf_token }}' }, function( response ) {
+                if(response.is_valid == true){
+                    $('#success_div').html(response.data);
+                    $('#success_div').fadeIn(700);
+                    $('#success_div').fadeOut(10000);
+                    var target_row = $('#tablerecord' + id).get(0);
+                    target_row.remove();
+
+                    $('#myModal').modal('hide');
+
+                }else{
+                    $('#error_div').html(response.data);
+                    $('#error_div').fadeIn(700);
+                    $('#error_div').fadeOut(10000);
+                }
+
+          }, "json");
+
+      });
+
+      $('button.btnEdit').on('click', function (e) {
+          e.preventDefault();
+          var id = $(this).attr('id');
+
+          $('#item_id').val(id);
+          $("#sclientid").val($(this).closest('tr').find('td#clientid').text());
+          $("#scompany").val($(this).closest('tr').find('td#company').text());
+          $('#scontact').val($(this).closest('tr').find('td#contact').text());
+          $('#semail').val($(this).closest('tr').find('td#email').text());
+          $('#sbusinessnumber').val($(this).closest('tr').find('td#business_phone').text());
+          $('#smobileNumber').val($(this).closest('tr').find('td#mobile_phone').text());
+          $('#scity').val($(this).closest('tr').find('td#city').text());
+          $('#sdate_joined').val($(this).closest('tr').find('td#date_joined').text());
+
+          $('#ssclientid').val($(this).closest('tr').find('td#clientid').text());
+          $('#scountry').val($(this).closest('tr').find('#countryid').val());
+          $('#saltemail').val($(this).closest('tr').find('#altemail').val());
+          $('#saddress').val($(this).closest('tr').find('#address').val());
+          $('#sfax').val($(this).closest('tr').find('#fax').val());
+
+          $('#editModal').attr('mode-id', id);
+          $('#editModal').modal('show');
+      });
+
+      $('#btnAdd').on('click', function (e) {
+          e.preventDefault();
+
+          $('#item_id').val('');
+          $("#sclientid").val('');
+          $('#ssclientid').val('');
+          $("#scompany").val('');
+          $('#scontact').val('');
+          $('#semail').val('');
+          $('#sbusinessnumber').val('');
+          $('#smobileNumber').val('');
+          $('#scountry').val('');
+          $('#scity').val('');
+          $('#sdate_joined').val('');
+
+          $('#saltemail').val('');
+          $('#saddress').val('');
+          $('#sfax').val('');
+
+          $('#editModal').modal('show');
+
+      });
+
+      $('#edit-modal-form').submit(function(e) {
+        e.preventDefault();
+        var id = $('#editModal').attr('mode-id');
+
+            var data = new FormData($('#edit-modal-form').get(0));
+            $.ajax({ // create an AJAX call...
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(response) { // on success..
+                    if(response.is_valid == true){
+                        $('#success_div').html(response.data);
+                        $('#success_div').fadeIn(700);
+                        $('#success_div').fadeOut(10000);
+
+                        if (id >0){
+
+                            $('#tablerecord'+id).find('td#contact').text($('#scontact').val());
+                            $('#tablerecord'+id).find('td#company').text($('#scompany').val());
+                            $('#tablerecord'+id).find('td#email').text($('#semail').val());
+                            $('#tablerecord'+id).find('td#business_phone').text($('#sbusinessnumber').val());
+                            $('#tablerecord'+id).find('td#mobile_phone').text($('#smobileNumber').val());
+                            $('#tablerecord'+id).find('td#city').text($('#scity').val());
+                            $('#tablerecord'+id).find('td#country').text($('#scountry :selected').text());
+
+                            $('#tablerecord'+id).find('#countryid').val($('#scountry').val());
+                            $('#tablerecord'+id).find('#altemail').val($('#saltemail').val());
+                            $('#tablerecord'+id).find('#address').val($('#saddress').val());
+                            $('#tablerecord'+id).find('#fax').val($('#sfax').val());
+
+
+                        }else{
+
+
+                            var action_btn = '<div class="btn-group"><span><button user_id="" id="" class="btn btn-default btnDelete" type="button">' +
+                                    '<i class="glyphicon glyphicon-remove"></i></button></span><span>' +
+                                    '<button current_user_id="" user_id="" id="" class="btn btn-default btnEdit" type="button">' +
+                                    '<i class="glyphicon glyphicon-edit"></i></button></span></div>';
+                            action_btn='Refresh Page';
+
+                            var new_record =
+                                    '<tr class="gradeX" id="tablerecord" data-id="">' +
+                                    '<td id="clientid">'+response.client_id+'</td>' +
+                                    '<td id="contact">'+$('#scontact').val()+'</td>' +
+                                    '<td id="company">'+$('#scompany').val()+'</td>' +
+                                    '<td id="email">'+$('#semail').val()+'</td>' +
+                                    '<td id="business_phone">'+$('#sbusinessnumber').val()+'</td>' +
+                                    '<td id="mobile_phone">'+$('#smobileNumber').val()+'</td>' +
+                                    '<td id="country">'+$('#scountry :selected').text()+'</td>' +
+                                    '<td id="city">'+$('#scity').val()+'</td>' +
+                                    '<td>Just Now</td>'
+                                    '<td>' +action_btn+ '</td>'
+                                    '</tr>';
+                                $('#dynamic-table tr:first').after(new_record);
+{#                                alert('inserted');#}
+
+                        }
+
+                        $('#editModal').modal('hide');
+
+                    }else{
+                        $('#modal_error_div').html(response.data);
+                        $('#modal_error_div').fadeIn(700);
+                        $('#modal_error_div').fadeOut(10000);
+                    }
+                },
+                error: function(e, x, r) { // on error..
+                    alert("error");
+                    $('#modal_error_div').html(e);
+                }
+            });
+
+    });
+
+
+      jQuery(document).ready(function() {
+
+{#        jQuery('#dynamic-table').dataTable();#}
+
+        jQuery('#dynamic-table').dataTable({
+          "sPaginationType": "full_numbers"
+        });
+
+        jQuery('#datepicker1').datepicker();
+        jQuery('#datepicker2').datepicker();
+
+        // Chosen Select
+{#        jQuery("select").chosen({#}
+{#          'min-width': '100px',#}
+{#          'white-space': 'nowrap',#}
+{#          disable_search_threshold: 10#}
+{#        });#}
+{##}
+{#        // Delete row in a table#}
+{#        jQuery('.delete-row').click(function(){#}
+{#          var c = confirm("Continue delete?");#}
+{#          if(c)#}
+{#            jQuery(this).closest('tr').fadeOut(function(){#}
+{#              jQuery(this).remove();#}
+{#            });#}
+{##}
+{#            return false;#}
+{#        });#}
+{#alert('here');#}
+
+        // Show aciton upon row hover
+        jQuery('.table-hidaction tbody tr').hover(function(){
+          jQuery(this).find('.table-action-hide a').animate({opacity: 1});
+        },function(){
+          jQuery(this).find('.table-action-hide a').animate({opacity: 0});
+        });
+
+        var cache = {},
+            lastXhr;
+        $( "#clientNumber" ).autocomplete({
+            autoFocus: true,
+            minLength: 3,
+            delay: 100,
+            messages: {
+            noResults: '',
+            results: function() {}
+            },
+            source: function( request, response ) {
+                    var term = request.term;
+                    if ( term in cache ) {
+                        response( cache[ term ] );
+                        return;
+                    }
+
+                    lastXhr = $.getJSON( "/clientList", request, function( data, status, xhr ) {
+                        cache[ term ] = data;
+                        if ( xhr === lastXhr ) {
+                            response( data );
+                        }
+                    });
+            },
+            change: function( event, ui ) {
+
+                if (ui.item){
+
+                    $('#clientNumber').val(ui.item.label);
+                    $('#clientFilter').val(ui.item.id);
+                }else{
+
+{#                    $('#clientNumber').val();#}
+                    $('#clientFilter').val();                }
+
+            }
+
+        });
+
+      });
+
+    </script>
+
+{% endblock %}

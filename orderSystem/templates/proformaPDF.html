@@ -1,0 +1,127 @@
+{% load staticfiles %}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>My Title</title>
+        <style type="text/css">
+
+            .higlightcell{
+                background-color: #f7ecb5;
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="col-sm-9">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <img src="{% static 'images/MBG/header.jpg' %}" alt=""/>
+{#                <img src="{% static 'images/MBG/proforma_header.png' %}" width="800" height="150" alt=""/>#}
+            </div>
+            <!-- panel-body -->
+            <div class="panel-body">
+            <table>
+                <tr>
+                    <td>Email: {{ creator.email }}</td>
+                    <td>Tel: {{ creator.employee.phone_number }}</td>
+                    <td>Date: {{ calculated.DATE }}</td>
+                </tr>
+            </table>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <br/>
+                        <br/>
+                        <b>
+                        {{ order.client.company_name }}<br/>
+                        Att: {{ order.client.contact_person }}<br/>
+                        {{ order.client.address }}<br/>
+                        {{ order.client.city }} - {{ order.client.country.name }}<br/>
+                        Email: {{ order.client.email }}<br/>
+                        </b>
+                        <br/>
+                        <br/>
+
+                        <b>PROFORMA INVOICE NO: {{ order.order_number }} {{ order.order_truck_subscr }} {{ order.gfz_number }} </b><br/><br/>
+                        We refer to your inquiry and are pleased to quote, based on our general terms and conditions of
+                        delivery and sale as follows:
+                        <br/>
+                        <br/>
+                         {{ order.man_truck_model }} {{ order.gfz_number }} <br/>
+                         {{ order.order_truck_subscr }}<br/><br/>
+                        <b>
+
+                        <table>
+                            <tr>
+                                <td>Offer price for 1 Unit, {{ order.duty_type.name }}</td>
+                                <td align="right">{{ order.currency.symbol }}{{ calculated.SALE_PRICE }}&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td>Offer price for {{ order.quantity }} Unit{% if order.quantity > 1 %}s{% endif %},  {{ order.duty_type.name }}</td>
+                                <td align="right">{{ order.currency.symbol }}{{ calculated.SALE_PRICE_TOTAL }}&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+                            </tr>
+                            <tr><td style="border-bottom: 1px">&nbsp&nbsp&nbsp&nbsp&nbsp</td></tr>
+                        </table>
+                        </b>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <b><u>Prices:</u></b><br/>
+
+                        Are net, in EURO and acc. to Incoterms, edition 2010.
+
+                        <br/><br/><b><u>Delivery:</u></b><br/>
+                        {{ order.estimated_delivery_time.name }} from receipt of firm order.
+                        `
+                        <br/><br/><b><u>Payment:</u></b><br/>
+                        100% out of an irrevocable letter of credit confirmed by a first class European Bank or by Bank Transfer.<br/>
+                        All charges to debit of applicant .
+
+                        <br/><br/><b><u>Guarantee:</u></b><br/>
+                        12 months unlimited mileage, or expiring 18 months after B/L date at the latest.<br/>
+                        24 months or 200.000 km, or expiring 30 months after B/L date whatever comes first,<br/>
+                        on the drive train (engine, gearbox, driven axles) only.
+
+                        <br/>
+                        <p><b><u>NOTE: During the warranty period all servicing should be done by an authorized MAN dealer</u></b></p>
+
+                        <br/><br/><b>Validity:</b><br/>
+                        Valid till: {{ calculated.VALID }}
+
+                        <br/><br/>Yours Sincerely,<br/>
+
+                        <span class="thumb"><img height="60px" src="{{ path }}{{ creator.employee.signature.url }}" alt=""/></span>
+                        <span class="thumb"><img height="120px" src="{% static 'images/MBG/stamp.png' %}" alt=""/></span>
+
+
+                        <br/>
+
+                        <p>{{ creator.first_name }} {{ creator.last_name }}</p>
+
+                        <p>{{ creator.role }}</p><br/>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- panel-body -->
+            <div class="panel-footer">
+                <img src="{% static 'images/MBG/footer.jpg' %}" alt=""/>
+            </div>
+            <!-- panel-footer -->
+        </div>
+        <!-- panel -->
+    </div><!-- col-sm-6 -->
+
+    </div><!-- row -->
+
+
+
+    </body>
+</html>
+

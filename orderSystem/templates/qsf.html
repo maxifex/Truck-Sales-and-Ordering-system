@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css %} {% endblock %}
+
+{% block pageName %}
+    <i class="fa fa-qrcode"></i> QSF
+{% endblock %}
+
+{% block pageSubs %}
+    QSF
+{% endblock %}
+
+{% block pageNav %}
+    QSF
+{% endblock %}
+
+{% block pageContent %}
+
+
+    <div class="col-sm-9">
+        <p class="mb20"><a href="{% url 'man:qsfPDF' %}?order_id={{  order.id }}">Click Here</a> to get a printable version of this QSF</p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <img src="{% static 'images/MBG/header.jpg' %}"  width="800" alt=""/>
+            </div>
+            <!-- panel-body -->
+            <div class="panel-body">
+                <div class="row">
+                    <span class="col-md-4">Email: {{ creator.email }}</span>
+                    <span class="col-md-4">Tel: {{ creator.employee.phone_number }}</span>
+                    <span class="col-md-4">Date: {{ calculated.DATE }}</span>
+
+                </div>
+
+
+                <div class="row">
+
+
+                    <div class="col-md-12">
+                        <br/>
+                        <br/>
+                        <b>
+                        {{ order.client.company_name }}<br/>
+                        Att: {{ order.client.contact_person }}<br/>
+                        {{ order.client.address }}<br/>
+                        {{ order.client.city }} - {{ order.client.country.name }}<br/>
+                        Email: {{ order.client.email }}<br/>
+                        </b>
+                        <br/>
+                        <br/>
+
+                        <b>Quotation / proforma invoice: {{ order.order_number }} </b><br/><br/>
+                        Dear {{ order.client.contact_person }},<br/><br/><br/>
+                       We are pleased to be able to offer you the following equipment, subject to confirmation and export permission by the German Authorities the bellow mentioned truck(s) unless otherwise specified in this offer on the basis of our "General Terms and Conditions of Sale and Delivery for factory new commercial vehicles and units thereof and for MAN genuinen parts, MAN genuine accessories and MAN genuine exchange part "
+Please note that this quotation is based on today's technical standards, it may have changed when placing the order, the trucks will however be conform to the original requirements. Final and binding  specifications will be as per our order.
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <b>1. Object and price </b><br/><br/>
+                        The purchaser purchases and the seller sells the following goods:<br/><br/>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                        <b><span class="col-md-4">Type of vehicle:</span></b>
+                        <span class="col-md-4">{{ order.man_truck_model }}</span>
+                        <span class="col-md-4"></span>
+                </div>
+                <br/>
+                <div class="row">
+                        <b><span class="col-md-4">Model:</span></b>
+                        <span class="col-md-4">{{ order.order_truck_subscr }}</span>
+                        <span class="col-md-4"></span>
+                </div>
+                <br/>
+                <div class="row">
+                        <b><span class="col-md-4">Units:</span></b>
+                        <span class="col-md-4">{{ order.quantity }}Unit(s)</span>
+                        <span class="col-md-4"></span>
+                </div>
+                <br/>
+                <div class="row">
+                        <b><span class="col-md-4">Price per unit:</span></b>
+                        <span class="col-md-4">{{ order.selling_price }}</span>
+                        <span class="col-md-4"></span>
+                </div>
+                <br/>
+                <div class="row">
+                        <b><span class="col-md-4">Specifications:</span></b>
+                        <span class="col-md-4">As defined in Appendix 1</span>
+                        <span class="col-md-4"></span>
+                </div>
+                <br/>
+                <div class="row">
+                    <b>
+                        <span class="col-md-4">Total Price:</span>
+                        <span class="col-md-4">EURO</span>
+                        <span class="col-md-4">€{{ calculated.TOTAL_PRICE }}</span>
+                    </b>
+
+
+                <br/><br/>
+                <p>Prices:</p>
+                <p>Are net, in EURO and acc. to Incoterms, edition 2010.</p>
+
+                </div>
+
+
+                <div class="row">
+
+
+                    <div class="col-md-12">
+                        <br/>
+                        <br/>
+                        <b>2. Delivery time and delivery of good:</b><br/><br/>
+                        The delivery will be made in approx. -,  after your signature and <br/>
+                        acceptance of this quotation / proforma Invoice with the delivery condition <br/>
+
+                        <br/>
+                        The delivery date is the date on which goods are ready for dispatch at seller's plant. The precondition for the Seller
+                        meeting the delivery time is, that the Purchaser fulfills all payment commitments in accordance with Article 3 of this
+                        agreement. If these preconditions are not met, the delivery time will be extended accordingly.Default of delivery is
+                        ruled out in the event of force majeure.
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <br/>
+                        <br/>
+                        <b>3. Terms of payment:</b><br/><br/>
+                            The payment of the entire contractual sum shall be made in  € (EURO) as follows:<br/><br/>
+
+                            100% out of an irrevocable letter of credit, confirmed by a first class European Bank, fully<br/>
+                            negotiable, payable  35% with the order and 35% on B/L and 30% on delivery by transfer of bankers draft. All charges to debit of applicant.<br/><br/><br/>
+
+                            MBG Limited<br/>
+                            Heavy Industrial Area<br/>
+                            Steel Works Road<br/>
+                            Tema<br/>
+                            Ghana<br/><br/>
+
+                            All L/C related charges during payments to the account of applicant.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <br/>
+                        <br/>
+                        <b>4. Validity</b><br/><br/>
+                            This offer / proforma invoice is valid until the {{ calculated.VALID }}<br/><br/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <br/>
+                        <br/>
+                        <b>5. Warranty</b><br/><br/>
+                        12 months unlimited mileage, or expiring 18 months after B/L date the latest 24 months or 200.000 Km, or expiring 30 months after B/L date whatever
+                        comes first, on the drive train (engine, gearbox, driven axles) only. And 12 months on trailer driving train and construction.<br/><br/>
+
+                        <b>NOTE: During the warranty period all servicing should be done by an authorized MAN dealer.</b><br/><br/>
+
+                        We hope our offer will find your approval and are looking forward to hearing from you. Should you accept our quotation
+                        please return it to MBG Limited duly signed and stamped. Should you have any queries or enquire more information, please do not hesitate to contact us quoting our reference.<br/><br/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <br/>
+                        <br/>
+                        With best regards,<br/><br/>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                            <b>MBG-GHANA Limited       FIC</b><br/>
+                            <b>GST</b>
+
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <br/>
+
+                        Proforma Invoice approved and accepted<br/><br/>
+
+
+                        Place……………………………  Date……………………………<br/><br/>
+
+                        ……………………………………………………………………………<br/>
+                        signature/stamp<br/><br/>
+                    </div>
+                </div>
+
+                <br/>
+<p>Enclosures:</p>
+<p>Appendix 1: Specifications and pricing</p>
+
+            </div>
+            <!-- panel-body -->
+            <div class="panel-footer">
+                <img src="{% static 'images/MBG/footer.jpg' %}" width="800" alt=""/>
+            </div>
+            <!-- panel-footer -->
+        </div>
+        <!-- panel -->
+    </div><!-- col-sm-6 -->
+
+    </div><!-- row -->
+
+{% endblock %}
+
+{% block extra_js %} {% endblock %}
+

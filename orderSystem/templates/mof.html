@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css %} {% endblock %}
+
+{% block pageName %}
+   <i class="fa fa-home"></i> MOF
+{% endblock %}
+
+{% block pageSubs %}
+    MOF of order details
+{% endblock %}
+
+{% block pageNav %}
+    dashboard
+{% endblock %}
+
+{% block pageContent %}
+
+
+
+    <div class="contentpanel">
+
+      <div class="row">
+        <p class="mb20"><a href="{% url 'man:mofPDF' %}?order_id={{  order.id }}">Click Here</a> to get a printable version of this MOF</p>
+
+        <div class="col-md-10">
+          <h5 class="subtitle mb5">Attention MAN Nutzfahrzeuge AG</h5>
+{#          <p class="mb20">Use <code>.table-striped</code> to add zebra-striping to any table row within the <code>tbody</code></p>#}
+          <div class="table-responsive">
+          <table class="table table-striped mb30">
+{#            <thead>#}
+{#              <tr>#}
+{#                <th>#</th>#}
+{#                <th>First Name</th>#}
+{#                <th>Last Name</th>#}
+{#                <th>Username</th>#}
+{#              </tr>#}
+{#            </thead>#}
+            <tbody>
+              <tr>
+                <td>Order number</td>
+                <td></td>
+                <td>{{ order.order_number }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>your offer number</td>
+                <td></td>
+                <td>{{ order.order_number }}.{{ order.order_truck_subscr }}</td>
+                <td>Date: {{ order.order_date|date:"d - M - Y" }}</td>
+              </tr>
+              <tr>
+                <td>Company</td>
+                <td></td>
+                <td>{{ order.client.company_name }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>City</td>
+                <td></td>
+                <td>{{ order.client.city }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Country</td>
+                <td></td>
+                <td>{{ order.client.country.name }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Country of destination</td>
+                <td></td>
+                <td>{{ order.country.name }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Requested date of delivery</td>
+                <td></td>
+                <td>{{ order.estimated_delivery_time.name }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Place of delivery / Incoterm</td>
+                <td></td>
+                <td>{% if order.country.port_name == '' %}N/A{% else %}{{ order.country.port_name }}{% endif %}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Payment terms</td>
+                <td></td>
+                <td>{{ order.payment_term.duration }} Days Deferred payment, 100% LC</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          </div><!-- table-responsive -->
+        </div><!-- col-md-6 -->
+
+
+      </div><!-- row -->
+
+      <div class="row">
+
+        <div class="col-md-10">
+          <p class="mb20">We order on the basis of the "General terms of Sale and Delivery(Export)" of MAN Truck & Bus AG</p>
+          <div class="table-responsive">
+          <table class="table table-striped mb30">
+            <thead>
+              <tr>
+                <th>QTY</th>
+                <th>Model/Body</th>
+                <th>GFZ.-Nr.:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.man_truck_model }}</td>
+                <td>{{ order.gfz_number }}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div><!-- table-responsive -->
+        </div><!-- col-md-6 -->
+
+      </div><!-- row -->
+
+      <div class="row">
+
+        <div class="col-md-10">
+          <p class="mb20">Vehicle equipment according to the technical specification as per Manex-file enclosed</p>
+          <div class="table-responsive">
+          <table class="table table-striped mb30">
+{#            <thead>#}
+{#              <tr>#}
+{#                <th>#</th>#}
+{#                <th>First Name</th>#}
+{#                <th>Last Name</th>#}
+{#                <th>Username</th>#}
+{#              </tr>#}
+{#            </thead>#}
+            <tbody>
+              <tr>
+                <td>Calculation As per Manex</td>
+                <td></td>
+                <td></td>
+                <td align="right"></td>
+              </tr>
+              <tr>
+                <td>GFZ price (list):</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ order.manex_basic_vehicle_price }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Additional equipment (list)</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ order.additional_equipment }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Total vehicle price (list) </td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ order.additional_equipment|add:order.manex_basic_vehicle_price }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Discount on GFZ</td>
+                <td>{{ order.discount.percent }}%</td>
+                <td></td>
+                <td align="right">-{{ calculated.discount_on_gfz }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Discount on Options</td>
+                <td>{{ order.discount.percent }}%</td>
+                <td></td>
+                <td align="right">-{{ calculated.discount_on_other }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Vehicle net price 1</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ calculated.vehicle_net_price1 }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Special discount:</td>
+                <td>{{ order.special_discount.percent }}%</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Vehicle net price 2</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ calculated.vehicle_net_price2 }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>External equipment</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ calculated.external_equipment }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Transport</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ calculated.transport_charge }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>LC-costs</td>
+                <td>{{ order.payment_term.rate }}%</td>
+                <td>{{ calculated.days }} Days</td>
+                <td align="right">{{ calculated.lc_cost }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Other to be specified</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ calculated.other_to_be_specified }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Vehicle net price 3</td>
+                <td></td>
+                <td></td>
+                <td align="right">{{ calculated.vehicle_net_price3 }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>interest</td>
+                <td>{{ calculated.interest }}%</td>
+                <td>{{ calculated.days }} Days</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Vehicle net price</td>
+                <td></td>
+                <td>1 Vehicle</td>
+                <td align="right">{{ calculated.vehicle_net_price3 }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>{{ calculated.quantity }} Vehicles</td>
+                <td align="right">{{ calculated.vehicle_net_price_total }}{{ order.currency.symbol }}</td>
+              </tr>
+              <tr>
+                <td>Date: {{ order.order_date|date:"d - M - Y" }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>&nbsp&nbsp</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>{{ creator.last_name }} {{ creator.first_name }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          </div><!-- table-responsive -->
+        </div><!-- col-md-6 -->
+
+      </div><!-- row -->
+
+    </div>
+
+
+{% endblock %}
+
+{% block extra_js %} {% endblock %}
+
